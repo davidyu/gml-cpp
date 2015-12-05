@@ -1,10 +1,24 @@
 #pragma once
 
+#include <math.h>
+
 template <int n> struct Vec {
     float v[n];
 
     float& operator[]( const int i ) {
         return this->v[i];
+    }
+
+    float lensq() {
+        float sum = 0.f;
+        for ( int i = 0; i < n; i++ ) {
+            sum += this->v[i] * this->v[i];
+        }
+        return sum;
+    }
+
+    float len() {
+        return sqrt( this->lensq() );
     }
 };
 
@@ -87,6 +101,14 @@ template<> struct Vec<2> {
     float& operator[]( const int i ) {
         return this->v[i];
     }
+
+    float lensq() {
+        return this->x * this->x + this->y * this->y;
+    }
+
+    float len() {
+        return sqrt( this->lensq() );
+    }
 };
 
 template<> struct Vec<3> {
@@ -111,6 +133,14 @@ template<> struct Vec<3> {
 
     float& operator[]( const int i ) {
         return this->v[i];
+    }
+
+    float lensq() {
+        return this->x * this->x + this->y * this->y + this->z * this->z;
+    }
+
+    float len() {
+        return sqrt( this->lensq() );
     }
 };
 
@@ -140,6 +170,14 @@ template<> struct Vec<4> {
 
     float& operator[]( const int i ) {
         return this->v[i];
+    }
+
+    float lensq() {
+        return this->x * this->x + this->y * this->y + this->z * this->z + this->w * this->w;
+    }
+
+    float len() {
+        return sqrt( this->lensq() );
     }
 };
 
