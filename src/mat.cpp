@@ -1,6 +1,5 @@
 #include <stdint.h>
 
-#include "vec.hpp"
 #include "mat.hpp"
 
 typedef uint8_t uint8;

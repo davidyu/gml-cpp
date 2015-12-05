@@ -81,6 +81,15 @@ Vec<n> operator/ ( const Vec<n> lhs, const float rhs ) {
     return scaled;
 }
 
+template <int n>
+float dot( const Vec<n> lhs, const Vec<n> rhs ) {
+    float dp;
+    for ( int i = 0; i < n; i++ ) {
+        dp += lhs[i] * rhs[i];
+    }
+    return dp;
+}
+
 template<> struct Vec<2> {
     union {
         float v[2];
@@ -180,6 +189,20 @@ template<> struct Vec<4> {
         return sqrt( this->lensq() );
     }
 };
+
+template <int n>
+Vec<n> cross( const Vec<n> lhs, const Vec<n> rhs ) {
+    static_assert( n == 3, "cross only defined for Vec<3>!" );
+    return { lhs[1] * rhs[2] - lhs[2] * rhs[1]
+           , lhs[2] * rhs[0] - lhs[0] * rhs[2]
+           , lhs[0] * rhs[1] - lhs[1] * rhs[0] };
+}
+
+template <int n>
+float cross2D( const Vec<n> lhs, const Vec<n> rhs ) {
+    static_assert( n == 2, "cross2D only defined for Vec<2>!" );
+    return lhs[0] * rhs[1] - lhs[1] * rhs[0];
+}
 
 typedef Vec<2> Vec2;
 typedef Vec<3> Vec3;
