@@ -23,7 +23,7 @@ template <int n> struct Vec {
 };
 
 template <int n>
-Vec<n> operator+ ( Vec<n> lhs, Vec<n> rhs ) {
+Vec<n> operator+ ( const Vec<n> lhs, const Vec<n> rhs ) {
     Vec<n> sum;
     for ( int i = 0; i < n; i++ ) {
         sum[i] = lhs[i] + rhs[i];
@@ -32,7 +32,7 @@ Vec<n> operator+ ( Vec<n> lhs, Vec<n> rhs ) {
 }
 
 template <int n>
-Vec<n> operator- ( Vec<n> lhs, Vec<n> rhs ) {
+Vec<n> operator- ( const Vec<n> lhs, const Vec<n> rhs ) {
     Vec<n> difference;
     for ( int i = 0; i < n; i++ ) {
         difference[i] = lhs[i] - rhs[i];
@@ -41,7 +41,7 @@ Vec<n> operator- ( Vec<n> lhs, Vec<n> rhs ) {
 }
 
 template <int n>
-Vec<n> operator* ( Vec<n> lhs, Vec<n> rhs ) {
+Vec<n> operator* ( const Vec<n> lhs, const Vec<n> rhs ) {
     Vec<n> product;
     for ( int i = 0; i < n; i++ ) {
         product[i] = lhs[i] * rhs[i];
@@ -50,7 +50,7 @@ Vec<n> operator* ( Vec<n> lhs, Vec<n> rhs ) {
 }
 
 template <int n>
-Vec<n> operator* ( Vec<n> lhs, float rhs ) {
+Vec<n> operator* ( const Vec<n> lhs, const float rhs ) {
     Vec<n> scaled;
     for ( int i = 0; i < n; i++ ) {
         scaled[i] = lhs[i] * rhs;
@@ -59,12 +59,12 @@ Vec<n> operator* ( Vec<n> lhs, float rhs ) {
 }
 
 template <int n>
-Vec<n> operator* ( float lhs, Vec<n> rhs ) {
+Vec<n> operator* ( const float lhs, const Vec<n> rhs ) {
     return operator*( rhs, lhs );
 }
 
 template <int n>
-Vec<n> operator/ ( Vec<n> lhs, Vec<n> rhs ) {
+Vec<n> operator/ ( const Vec<n> lhs, const Vec<n> rhs ) {
     Vec<n> quotient;
     for ( int i = 0; i < n; i++ ) {
         quotient[i] = lhs[i] / rhs[i];
@@ -73,7 +73,7 @@ Vec<n> operator/ ( Vec<n> lhs, Vec<n> rhs ) {
 }
 
 template <int n>
-Vec<n> operator/ ( Vec<n> lhs, float rhs ) {
+Vec<n> operator/ ( const Vec<n> lhs, const float rhs ) {
     Vec<n> scaled;
     for ( int i = 0; i < n; i++ ) {
         scaled[i] = lhs[i] / rhs;
