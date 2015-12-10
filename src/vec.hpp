@@ -9,6 +9,10 @@ template <int n> struct Vec {
         return this->v[i];
     }
 
+    const float& operator[]( const int i ) const {
+        return this->v[i];
+    }
+
     float lensq() {
         float sum = 0.f;
         for ( int i = 0; i < n; i++ ) {
@@ -111,6 +115,10 @@ template<> struct Vec<2> {
         return this->v[i];
     }
 
+    const float& operator[]( const int i ) const {
+        return this->v[i];
+    }
+
     float lensq() {
         return this->x * this->x + this->y * this->y;
     }
@@ -141,6 +149,10 @@ template<> struct Vec<3> {
     }
 
     float& operator[]( const int i ) {
+        return this->v[i];
+    }
+
+    const float& operator[]( const int i ) const {
         return this->v[i];
     }
 
@@ -178,6 +190,10 @@ template<> struct Vec<4> {
     }
 
     float& operator[]( const int i ) {
+        return this->v[i];
+    }
+
+    const float& operator[]( const int i ) const {
         return this->v[i];
     }
 
