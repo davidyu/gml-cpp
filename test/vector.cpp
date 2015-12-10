@@ -109,3 +109,36 @@ TEST_CASE( "vector operations", "" ) {
     REQUIRE( r[4] == 46 );
     REQUIRE( r[5] == 48 );
 }
+
+TEST_CASE( "vector methods", "" ) {
+    const float EPSILON = 1e-6;
+
+    Vec2 a = { 2, 3 };
+    
+    REQUIRE( fabs( length( a ) - sqrt( 2*2 + 3*3 ) ) < EPSILON );
+    REQUIRE( lengthsq( a ) == 2*2 + 3*3 );
+    REQUIRE( length( normalize( a ) ) - 1 < EPSILON );
+
+    Vec3 b = { 4, 5, 6 };
+
+    REQUIRE( fabs( length( b ) - sqrt( 4*4 + 5*5 + 6*6 ) ) < EPSILON );
+    REQUIRE( lengthsq( b ) == 4*4 + 5*5 + 6*6 );
+    REQUIRE( length( normalize( b ) ) - 1 < EPSILON );
+
+    Vec4 c = { 7, 8, 9, 10 };
+
+    REQUIRE( fabs( length( c ) - sqrt( 7*7 + 8*8 + 9*9 + 10*10 ) ) < EPSILON );
+    REQUIRE( lengthsq( c ) == 7*7 + 8*8 + 9*9 + 10*10 );
+    REQUIRE( length( normalize( c ) ) - 1 < EPSILON );
+
+    Vec2 a2 = { 4, 5 };
+    REQUIRE( dot( a, a2 ) == 2*4 + 3*5 );
+
+    Vec3 b2 = { 7, 8, 9 };
+    REQUIRE( dot( b, b2 ) == 4*7 + 5*8 + 6*9 );
+
+    Vec4 c2 = { 11, 12, 13, 14 };
+    REQUIRE( dot( c, c2 ) == 7*11 + 8*12 + 9*13 + 10*14 );
+
+    REQUIRE( dot( cross( b, b2 ), b ) == 0 );
+}
