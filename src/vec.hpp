@@ -12,18 +12,6 @@ template <int n> struct Vec {
     const float& operator[]( const int i ) const {
         return this->v[i];
     }
-
-    float lensq() {
-        float sum = 0.f;
-        for ( int i = 0; i < n; i++ ) {
-            sum += this->v[i] * this->v[i];
-        }
-        return sum;
-    }
-
-    float len() {
-        return sqrt( this->lensq() );
-    }
 };
 
 template <int n>
@@ -94,6 +82,25 @@ float dot( const Vec<n> lhs, const Vec<n> rhs ) {
     return dp;
 }
 
+template <int n>
+float lengthsq( const Vec<n> in ) {
+    float sum = 0.f;
+    for ( int i = 0; i < n; i++ ) {
+        sum += in[i] * in[i];
+    }
+    return sum;
+}
+
+template <int n>
+float length( const Vec<n> in ) {
+    return sqrt( lengthsq( in ) );
+}
+
+template <int n>
+Vec<n> normalize( const Vec<n> in ) {
+    return in / length( in );
+}
+
 template<> struct Vec<2> {
     union {
         float v[2];
@@ -117,14 +124,6 @@ template<> struct Vec<2> {
 
     const float& operator[]( const int i ) const {
         return this->v[i];
-    }
-
-    float lensq() {
-        return this->x * this->x + this->y * this->y;
-    }
-
-    float len() {
-        return sqrt( this->lensq() );
     }
 };
 
@@ -154,14 +153,6 @@ template<> struct Vec<3> {
 
     const float& operator[]( const int i ) const {
         return this->v[i];
-    }
-
-    float lensq() {
-        return this->x * this->x + this->y * this->y + this->z * this->z;
-    }
-
-    float len() {
-        return sqrt( this->lensq() );
     }
 };
 
@@ -195,14 +186,6 @@ template<> struct Vec<4> {
 
     const float& operator[]( const int i ) const {
         return this->v[i];
-    }
-
-    float lensq() {
-        return this->x * this->x + this->y * this->y + this->z * this->z + this->w * this->w;
-    }
-
-    float len() {
-        return sqrt( this->lensq() );
     }
 };
 
