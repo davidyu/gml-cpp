@@ -1,6 +1,9 @@
 #include "collision.hpp"
 
-int gml::Collision::IntersectRaySphere( const Ray r, const Sphere o, float& t, Vec3& intersection ) {
+int gml::Collision::IntersectRaySphere( const gml::Ray r
+                                      , const gml::Sphere o
+                                      , float& t
+                                      , Vec3& intersection ) {
     Vec3 d = normalize( r.direction ); // dot( d, d ) is 1 => saves some unnecessary dot products
     Vec3 p = o.center - r.origin;
 
