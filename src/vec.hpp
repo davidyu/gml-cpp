@@ -203,6 +203,15 @@ float cross2D( const Vec<n> lhs, const Vec<n> rhs ) {
     return lhs[0] * rhs[1] - lhs[1] * rhs[0];
 }
 
+template <int n>
+Vec<n> zero() {
+    Vec<n> out;
+    for ( int i = 0; i < n; i++ ) {
+        out[i] = 0;
+    }
+    return out;
+}
+
 typedef Vec<2> Vec2;
 typedef Vec<3> Vec3;
 typedef Vec<4> Vec4;
