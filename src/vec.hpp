@@ -75,7 +75,7 @@ Vec<n> operator/ ( const Vec<n> lhs, const float rhs ) {
 
 template <int n>
 float dot( const Vec<n> lhs, const Vec<n> rhs ) {
-    float dp;
+    float dp = 0.f;
     for ( int i = 0; i < n; i++ ) {
         dp += lhs[i] * rhs[i];
     }

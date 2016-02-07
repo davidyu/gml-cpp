@@ -36,7 +36,6 @@ template<int N> Mat<N,N> identity() {
     return out;
 }
 
-
 inline Mat4 operator *( const Mat4& lhs, const Mat4& rhs ) {
     Mat4 out;
     matmul( lhs, rhs, out );

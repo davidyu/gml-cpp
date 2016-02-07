@@ -10,4 +10,5 @@ std::ostream& operator<<( std::ostream& os, const Vec<n>& v ) {
         os << v.v[i] << ", ";
     }
     os << v.v[n-1] << ")";
+    return os;
 }
