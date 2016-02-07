@@ -23,5 +23,15 @@ namespace gml {
     struct Sphere {
         Vec3 center;
         float radius;
+
+        Sphere()
+            : center( Vec3( 0, 0, 0 ) )
+            , radius( 1 )
+        {}
+
+        Sphere( Vec3 c, float r )
+            : center( c )
+            , radius( r )
+        {}
     };
 }
