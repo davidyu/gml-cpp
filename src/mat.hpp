@@ -27,6 +27,16 @@ void vecmat( const Vec4 lhs, const Mat4 rhs, Vec4& out );
 Mat4 fromRows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 );
 Mat4 fromCols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 );
 
+// usage: identity<4>() -> Mat<4,4>
+template<int N> Mat<N,N> identity() {
+    Mat<N, N> out;
+    for ( int i = 0; i < N; i++ ) {
+        out.flat[i] = 1;
+    }
+    return out;
+}
+
+
 inline Mat4 operator *( const Mat4& lhs, const Mat4& rhs ) {
     Mat4 out;
     matmul( lhs, rhs, out );
