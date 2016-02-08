@@ -1,10 +1,10 @@
 #include "collision.hpp"
 
-int gml::Collision::IntersectRaySphere( const gml::Ray    r
-                                      , const gml::Sphere o
-                                      , float&            t
-                                      , Vec3&             pt
-                                      , Vec3&             normal ) {
+bool gml::Collision::IntersectRaySphere( const gml::Ray    r
+                                       , const gml::Sphere o
+                                       , float&            t
+                                       , Vec3&             pt
+                                       , Vec3&             normal ) {
     Vec3 d = normalize( r.direction ); // dot( d, d ) is 1 => saves some unnecessary dot products
     Vec3 p = r.origin - o.center;
 
@@ -12,22 +12,22 @@ int gml::Collision::IntersectRaySphere( const gml::Ray    r
     float c = dot( p, p ) - o.radius * o.radius;
 
     // early exit; r starts outside o, but r points away from o
-    if ( c > 0 && b > 0 ) return 0;
+    if ( c > 0 && b > 0 ) return false;
 
     float discr = b*b - c;
 
     // r misses o
-    if ( discr < 0 ) return 0;
+    if ( discr < 0 ) return false;
 
     t = -b - sqrt( discr );
 
     // r starts inside o
-    if ( t < 0 ) return 0;
+    if ( t < 0 ) return false;
 
     pt = r.at( t );
     normal = normalize( pt - o.center );
 
-    return 1;
+    return true;
 }
 
 bool gml::Collision::IntersectRayPlane( const gml::Ray   r
