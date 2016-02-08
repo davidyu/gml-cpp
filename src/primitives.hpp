@@ -34,4 +34,19 @@ namespace gml {
             , radius( r )
         {}
     };
+
+    struct Plane {
+       Vec3 normal;
+       float d;
+
+       Plane( Vec3 n, float _d )
+           : normal( n )
+           , d( _d )
+       {}
+
+       Plane( Vec3 n, Vec3 pt )
+           : normal( n )
+           , d( dot( n, pt ) )
+       {}
+    };
 }

@@ -11,5 +11,12 @@ namespace gml {
                               , float&            t
                               , Vec3&             pt
                               , Vec3&             normal );
+
+
+        bool IntersectRayPlane( const gml::Ray   r
+                              , const gml::Plane pl
+                              , float&           t
+                              , Vec3&            pt
+                              , Vec3&            normal );
     }
 }

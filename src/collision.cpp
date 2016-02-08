@@ -29,3 +29,19 @@ int gml::Collision::IntersectRaySphere( const gml::Ray    r
 
     return 1;
 }
+
+bool gml::Collision::IntersectRayPlane( const gml::Ray   r
+                                      , const gml::Plane pl
+                                      , float&           t
+                                      , Vec3&            pt
+                                      , Vec3&            normal ) {
+    t = ( pl.d - dot( pl.normal, r.origin ) ) / dot( pl.normal, r.direction );
+
+    if ( t >= 0 ) {
+        pt = r.at( t );
+        normal = pl.normal;
+        return true;
+    } else {
+        return false;
+    }
+}
