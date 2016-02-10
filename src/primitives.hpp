@@ -14,7 +14,7 @@ namespace gml {
 
         Ray( Vec3 o, Vec3 d )
             : origin( o )
-            , direction( d )
+            , direction( normalize( d ) )
         {}
 
         inline Vec3 at( float t ) const { return origin + t * direction; }
@@ -40,12 +40,12 @@ namespace gml {
        float d;
 
        Plane( Vec3 n, float _d )
-           : normal( n )
+           : normal( normalize( n ) )
            , d( _d )
        {}
 
        Plane( Vec3 n, Vec3 pt )
-           : normal( n )
+           : normal( normalize( n ) )
            , d( dot( n, pt ) )
        {}
     };

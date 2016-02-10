@@ -1,5 +1,7 @@
 #pragma once
 
+// include me if you want to debug print vectors using cout
+
 #include "vec.hpp"
 #include <iostream>
 
