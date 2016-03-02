@@ -1,6 +1,6 @@
 .PHONY: test
 
-BIN=./bin
+BIN=bin
 SHELL=/bin/bash
 CFLAGS=-std=c++11 -I./src
 TESTFLAGS=$(CFLAGS) -I./test
@@ -8,9 +8,12 @@ SRCCPP=$(shell find ./src -name "*.cpp")
 TESTCPP=$(shell find ./test -name "*.cpp")
 LIB=./test/lib
 
+folders:
+	@mkdir -p $(BIN)
+
 update:
 	@pushd $(LIB) > /dev/null && sh update.sh && popd > /dev/null
 
-test: update
+test: folders update
 	$(CXX) $(TESTFLAGS) -o $(BIN)/$@ $(SRCCPP) $(TESTCPP)
-	@pushd $(BIN) > /dev/null && ls && ./test && popd > /dev/null
+	@pushd $(BIN) > /dev/null && ./test && popd > /dev/null
