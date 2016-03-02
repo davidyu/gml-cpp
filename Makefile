@@ -10,3 +10,4 @@ TESTCPP=$(shell find ./test -name "*.cpp")
 
 test:
 	$(CXX) $(TESTFLAGS) -o $(BIN)/$@ $(SRCCPP) $(TESTCPP)
+	@pushd $(BIN) > /dev/null && ./test && popd > /dev/null
