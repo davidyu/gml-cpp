@@ -27,15 +27,11 @@ template<> struct Vec<2> {
         struct { float r, g; };
     };
 
-    Vec( float x, float y ) {
-        this->x = x;
-        this->y = y;
-    }
+    Vec( float _x, float _y )
+        : x( _x ) , y( _y ) {}
 
-    Vec() {
-        this->x = 0;
-        this->y = 0;
-    }
+    Vec()
+        : x( 0 ), y ( 0 ) {}
 
     float& operator[]( const int i ) {
         return this->v[i];
@@ -54,17 +50,11 @@ template<> struct Vec<3> {
         Vec<2> xy;
     };
 
-    Vec( float x, float y, float z ) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
-    }
+    Vec( float _x, float _y, float _z )
+        : x( _x ), y( _y ), z( _z ) {}
 
-    Vec() {
-        this->x = 0;
-        this->y = 0;
-        this->z = 0;
-    }
+    Vec()
+        : x( 0 ), y( 0 ), z( 0 ) {}
 
     float& operator[]( const int i ) {
         return this->v[i];
@@ -85,19 +75,11 @@ template<> struct Vec<4> {
         Vec<3> rgb;
     };
 
-    Vec( float x, float y, float z, float w ) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
-        this->w = w;
-    }
+    Vec( float _x, float _y, float _z, float _w )
+        : x( _x ), y( _y ), z( _z ), w( _w ) {}
 
-    Vec() {
-        this->x = 0;
-        this->y = 0;
-        this->z = 0;
-        this->w = 0;
-    }
+    Vec()
+        : x( 0 ), y( 0 ), z( 0 ), w( 1 ) {}
 
     float& operator[]( const int i ) {
         return this->v[i];
