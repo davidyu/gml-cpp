@@ -110,6 +110,64 @@ TEST_CASE( "vector operations", "" ) {
     REQUIRE( r[5] == 48 );
 }
 
+TEST_CASE( "vector in-place modifier operations", "" ) {
+    Vec2 a = { 1, 2 };
+    Vec2 b = { 3, 4 };
+    a += b;
+
+    REQUIRE( a.x == 4 );
+    REQUIRE( a.y == 6 );
+
+    Vec3 d = { 5, 6, 7 };
+    Vec3 e = { 8, 9, 10 };
+    d *= e;
+
+    REQUIRE( d.x == 40 );
+    REQUIRE( d.y == 54 );
+    REQUIRE( d.z == 70 );
+
+    Vec4 g = { 15, 16, 17, 18 };
+    Vec4 h = { 11, 12, 13, 14 };
+    g -= h;
+
+    REQUIRE( g.x == 4 );
+    REQUIRE( g.y == 4 );
+    REQUIRE( g.z == 4 );
+    REQUIRE( g.w == 4 );
+
+    Vec<5> j = { 19 * 2, 20 * 2, 21 * 2, 22 * 2, 23 * 2 };
+    Vec<5> k = { 19, 20, 21, 22, 23 };
+    j /= k;
+
+    REQUIRE( j[0] == 2 );
+    REQUIRE( j[1] == 2 );
+    REQUIRE( j[2] == 2 );
+    REQUIRE( j[3] == 2 );
+    REQUIRE( j[4] == 2 );
+
+    Vec<6> m = { 19 * 2, 20 * 2, 21 * 2, 22 * 2, 23 * 2, 24 * 2 };
+    float n = 2;
+    m /= n;
+
+    REQUIRE( m[0] == 19 );
+    REQUIRE( m[1] == 20 );
+    REQUIRE( m[2] == 21 );
+    REQUIRE( m[3] == 22 );
+    REQUIRE( m[4] == 23 );
+    REQUIRE( m[5] == 24 );
+
+    Vec<6> p = { 19, 20, 21, 22, 23, 24 };
+    float q = 2;
+    p *= q;
+
+    REQUIRE( p[0] == 38 );
+    REQUIRE( p[1] == 40 );
+    REQUIRE( p[2] == 42 );
+    REQUIRE( p[3] == 44 );
+    REQUIRE( p[4] == 46 );
+    REQUIRE( p[5] == 48 );
+}
+
 TEST_CASE( "vector methods", "" ) {
     const float EPSILON = 1e-6;
 

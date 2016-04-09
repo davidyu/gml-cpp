@@ -24,12 +24,28 @@ Vec<n> operator+ ( const Vec<n> lhs, const Vec<n> rhs ) {
 }
 
 template <int n>
+Vec<n>& operator+= ( Vec<n>& lhs, const Vec<n> rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        lhs[i] += rhs[i];
+    }
+    return lhs;
+}
+
+template <int n>
 Vec<n> operator- ( const Vec<n> lhs, const Vec<n> rhs ) {
     Vec<n> difference;
     for ( int i = 0; i < n; i++ ) {
         difference[i] = lhs[i] - rhs[i];
     }
     return difference;
+}
+
+template <int n>
+Vec<n>& operator-= ( Vec<n>& lhs, const Vec<n> rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        lhs[i] -= rhs[i];
+    }
+    return lhs;
 }
 
 template <int n>
@@ -42,12 +58,28 @@ Vec<n> operator* ( const Vec<n> lhs, const Vec<n> rhs ) {
 }
 
 template <int n>
+Vec<n>& operator*= ( Vec<n>& lhs, const Vec<n> rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        lhs[i] *= rhs[i];
+    }
+    return lhs;
+}
+
+template <int n>
 Vec<n> operator* ( const Vec<n> lhs, const float rhs ) {
     Vec<n> scaled;
     for ( int i = 0; i < n; i++ ) {
         scaled[i] = lhs[i] * rhs;
     }
     return scaled;
+}
+
+template <int n>
+Vec<n>& operator*= ( Vec<n>& lhs, const float rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        lhs[i] *= rhs;
+    }
+    return lhs;
 }
 
 template <int n>
@@ -65,12 +97,28 @@ Vec<n> operator/ ( const Vec<n> lhs, const Vec<n> rhs ) {
 }
 
 template <int n>
+Vec<n>& operator/= ( Vec<n>& lhs, const Vec<n> rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        lhs[i] /= rhs[i];
+    }
+    return lhs;
+}
+
+template <int n>
 Vec<n> operator/ ( const Vec<n> lhs, const float rhs ) {
     Vec<n> scaled;
     for ( int i = 0; i < n; i++ ) {
         scaled[i] = lhs[i] / rhs;
     }
     return scaled;
+}
+
+template <int n>
+Vec<n> operator/= ( Vec<n>& lhs, const float rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        lhs[i] /= rhs;
+    }
+    return lhs;
 }
 
 template <int n>
