@@ -111,6 +111,7 @@ template <int n> Vec<n>  cross      ( const Vec<n> lhs, const Vec<n> rhs );
 template <int n> float   cross2D    ( const Vec<n> lhs, const Vec<n> rhs ); // only for vec2s
 template <int n> float   lengthsq   ( const Vec<n> in );
 template <int n> float   length     ( const Vec<n> in );
+template <int n> Vec<n>  normalize  ( const Vec<n> in );
 
 // free-floating constructors
 template <int n> Vec<n>  zero       ();

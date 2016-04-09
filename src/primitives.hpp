@@ -12,11 +12,11 @@ namespace gml {
             , direction( Vec3( 0, 0, -1 ) )
         {}
 
-        Ray( Vec3 o, Vec3 d, bool normalize = true )
+        Ray( Vec3 o, Vec3 d, bool normalizeDir = true )
             : origin( o )
             , direction( d )
         {
-            if ( normalize )
+            if ( normalizeDir )
                 direction = normalize( direction );
         }
 
