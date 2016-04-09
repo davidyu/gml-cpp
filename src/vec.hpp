@@ -2,6 +2,7 @@
 
 #include <math.h>
 
+// base vector struct
 template <int n> struct Vec {
     float v[n];
 
@@ -14,6 +15,125 @@ template <int n> struct Vec {
     }
 };
 
+typedef Vec<2> Vec2;
+typedef Vec<3> Vec3;
+typedef Vec<4> Vec4;
+
+// specialized definitions for Vec2, Vec3, and Vec4
+template<> struct Vec<2> {
+    union {
+        float v[2];
+        struct { float x, y; };
+        struct { float r, g; };
+    };
+
+    Vec( float x, float y ) {
+        this->x = x;
+        this->y = y;
+    }
+
+    Vec() {
+        this->x = 0;
+        this->y = 0;
+    }
+
+    float& operator[]( const int i ) {
+        return this->v[i];
+    }
+
+    const float& operator[]( const int i ) const {
+        return this->v[i];
+    }
+};
+
+template<> struct Vec<3> {
+    union {
+        float v[3];
+        struct { float x, y, z; };
+        struct { float r, g, b; };
+        Vec<2> xy;
+    };
+
+    Vec( float x, float y, float z ) {
+        this->x = x;
+        this->y = y;
+        this->z = z;
+    }
+
+    Vec() {
+        this->x = 0;
+        this->y = 0;
+        this->z = 0;
+    }
+
+    float& operator[]( const int i ) {
+        return this->v[i];
+    }
+
+    const float& operator[]( const int i ) const {
+        return this->v[i];
+    }
+};
+
+template<> struct Vec<4> {
+    union {
+        float v[4];
+        struct { float x, y, z, w; };
+        struct { float r, g, b, a; };
+        Vec<2> xy;
+        Vec<3> xyz;
+        Vec<3> rgb;
+    };
+
+    Vec( float x, float y, float z, float w ) {
+        this->x = x;
+        this->y = y;
+        this->z = z;
+        this->w = w;
+    }
+
+    Vec() {
+        this->x = 0;
+        this->y = 0;
+        this->z = 0;
+        this->w = 0;
+    }
+
+    float& operator[]( const int i ) {
+        return this->v[i];
+    }
+
+    const float& operator[]( const int i ) const {
+        return this->v[i];
+    }
+};
+
+// generic operators
+template <int n> Vec<n>  operator+  ( const Vec<n> lhs, const Vec<n> rhs );
+template <int n> Vec<n>& operator+= ( Vec<n>& lhs, const Vec<n> rhs );
+template <int n> Vec<n>  operator-  ( const Vec<n> lhs, const Vec<n> rhs );
+template <int n> Vec<n>& operator-= ( Vec<n>& lhs, const Vec<n> rhs );
+template <int n> Vec<n>  operator*  ( const Vec<n> lhs, const Vec<n> rhs );
+template <int n> Vec<n>& operator*= ( Vec<n>& lhs, const Vec<n> rhs );
+template <int n> Vec<n>  operator*  ( const Vec<n> lhs, const float rhs );
+template <int n> Vec<n>& operator*= ( Vec<n>& lhs, const float rhs );
+template <int n> Vec<n>  operator*  ( const float lhs, const Vec<n> rhs );
+template <int n> Vec<n>  operator/  ( const Vec<n> lhs, const Vec<n> rhs );
+template <int n> Vec<n>& operator/= ( Vec<n>& lhs, const Vec<n> rhs );
+template <int n> Vec<n>  operator/  ( const Vec<n> lhs, const float rhs );
+template <int n> Vec<n>  operator/= ( Vec<n>& lhs, const float rhs );
+
+// vector-specific operations
+template <int n> float   dot        ( const Vec<n> lhs, const Vec<n> rhs );
+template <int n> float   lengthsq   ( const Vec<n> in );
+template <int n> float   length     ( const Vec<n> in );
+template <int n> Vec<n>  cross      ( const Vec<n> lhs, const Vec<n> rhs );
+template <int n> float   cross2D    ( const Vec<n> lhs, const Vec<n> rhs ); // only for vec2s
+
+// free-floating constructors
+template <int n> Vec<n>  zero       ();
+
+// generic operator definitions
 template <int n>
 Vec<n> operator+ ( const Vec<n> lhs, const Vec<n> rhs ) {
     Vec<n> sum;
@@ -149,94 +269,6 @@ Vec<n> normalize( const Vec<n> in ) {
     return in / length( in );
 }
 
-template<> struct Vec<2> {
-    union {
-        float v[2];
-        struct { float x, y; };
-        struct { float r, g; };
-    };
-
-    Vec( float x, float y ) {
-        this->x = x;
-        this->y = y;
-    }
-
-    Vec() {
-        this->x = 0;
-        this->y = 0;
-    }
-
-    float& operator[]( const int i ) {
-        return this->v[i];
-    }
-
-    const float& operator[]( const int i ) const {
-        return this->v[i];
-    }
-};
-
-template<> struct Vec<3> {
-    union {
-        float v[3];
-        struct { float x, y, z; };
-        struct { float r, g, b; };
-        Vec<2> xy;
-    };
-
-    Vec( float x, float y, float z ) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
-    }
-
-    Vec() {
-        this->x = 0;
-        this->y = 0;
-        this->z = 0;
-    }
-
-    float& operator[]( const int i ) {
-        return this->v[i];
-    }
-
-    const float& operator[]( const int i ) const {
-        return this->v[i];
-    }
-};
-
-template<> struct Vec<4> {
-    union {
-        float v[4];
-        struct { float x, y, z, w; };
-        struct { float r, g, b, a; };
-        Vec<2> xy;
-        Vec<3> xyz;
-        Vec<3> rgb;
-    };
-
-    Vec( float x, float y, float z, float w ) {
-        this->x = x;
-        this->y = y;
-        this->z = z;
-        this->w = w;
-    }
-
-    Vec() {
-        this->x = 0;
-        this->y = 0;
-        this->z = 0;
-        this->w = 0;
-    }
-
-    float& operator[]( const int i ) {
-        return this->v[i];
-    }
-
-    const float& operator[]( const int i ) const {
-        return this->v[i];
-    }
-};
-
 template <int n>
 Vec<n> cross( const Vec<n> lhs, const Vec<n> rhs ) {
     static_assert( n == 3, "cross only defined for Vec<3>!" );
@@ -259,8 +291,3 @@ Vec<n> zero() {
     }
     return out;
 }
-
-typedef Vec<2> Vec2;
-typedef Vec<3> Vec3;
-typedef Vec<4> Vec4;
-typedef Vec<4> Color;
