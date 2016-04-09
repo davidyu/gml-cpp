@@ -5,7 +5,7 @@ bool gml::Collision::IntersectRaySphere( const gml::Ray    r
                                        , float&            t
                                        , Vec3&             pt
                                        , Vec3&             normal ) {
-    // calculations assume r.direction (d) is normalized, which it is by design
+    // calculations assume r.direction (d) is normalized, which it (generally) is
     // unless the user overwrote the direction vector with a non-normalized vector
     Vec3 d = r.direction;
     Vec3 p = r.origin - o.center;
