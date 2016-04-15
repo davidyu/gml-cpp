@@ -1,6 +1,8 @@
 #include "vec.hpp"
 #include "lib/catch.hpp"
 
+static const float EPSILON = 1e-6;
+
 TEST_CASE( "base vector accessors", "" ) {
     Vec<1> x = { 5 };
     REQUIRE( x[0] == 5 );
@@ -169,8 +171,6 @@ TEST_CASE( "vector in-place modifier operations", "" ) {
 }
 
 TEST_CASE( "vector methods", "" ) {
-    const float EPSILON = 1e-6;
-
     Vec2 a = { 2, 3 };
     
     REQUIRE( fabs( length( a ) - sqrt( 2*2 + 3*3 ) ) < EPSILON );
@@ -199,4 +199,48 @@ TEST_CASE( "vector methods", "" ) {
     REQUIRE( dot( c, c2 ) == 7*11 + 8*12 + 9*13 + 10*14 );
 
     REQUIRE( dot( cross( b, b2 ), b ) == 0 );
+}
+
+TEST_CASE( "random constructors", "" ) {
+    srand( time( NULL ) );
+
+    Vec2 a = randomInsideSphere<2>();
+    Vec3 b = randomInsideSphere<3>();
+    Vec4 c = randomInsideSphere<4>();
+
+    REQUIRE( fabs( length( a ) - 1 ) < EPSILON );
+    REQUIRE( fabs( length( b ) - 1 ) < EPSILON );
+    REQUIRE( fabs( length( c ) - 1 ) < EPSILON );
+
+    Vec2 d = randomInsideSphere<2>( 2 );
+    Vec3 e = randomInsideSphere<3>( 2 );
+    Vec4 f = randomInsideSphere<4>( 2 );
+
+    REQUIRE( fabs( length( d ) - 2 ) < EPSILON );
+    REQUIRE( fabs( length( e ) - 2 ) < EPSILON );
+    REQUIRE( fabs( length( f ) - 2 ) < EPSILON );
+
+    zero( a );
+    zero( b );
+    zero( c );
+
+    randomInsideSphere( a );
+    randomInsideSphere( b );
+    randomInsideSphere( c );
+
+    REQUIRE( fabs( length( a ) - 1 ) < EPSILON );
+    REQUIRE( fabs( length( b ) - 1 ) < EPSILON );
+    REQUIRE( fabs( length( c ) - 1 ) < EPSILON );
+
+    zero( d );
+    zero( e );
+    zero( f );
+
+    randomInsideSphere( d, 2 );
+    randomInsideSphere( e, 2 );
+    randomInsideSphere( f, 2 );
+
+    REQUIRE( fabs( length( d ) - 2 ) < EPSILON );
+    REQUIRE( fabs( length( e ) - 2 ) < EPSILON );
+    REQUIRE( fabs( length( f ) - 2 ) < EPSILON );
 }

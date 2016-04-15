@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include <stdlib.h>
 
 // base vector struct
 template <int n> struct Vec {
@@ -92,30 +93,35 @@ template<> struct Vec<4> {
 };
 
 // generic operators
-template <int n> Vec<n>  operator+  ( const Vec<n> lhs , const Vec<n> rhs );
-template <int n> Vec<n>& operator+= ( Vec<n>& lhs      , const Vec<n> rhs );
-template <int n> Vec<n>  operator-  ( const Vec<n> lhs , const Vec<n> rhs );
-template <int n> Vec<n>& operator-= ( Vec<n>& lhs      , const Vec<n> rhs );
-template <int n> Vec<n>  operator*  ( const Vec<n> lhs , const Vec<n> rhs );
-template <int n> Vec<n>& operator*= ( Vec<n>& lhs      , const Vec<n> rhs );
-template <int n> Vec<n>  operator*  ( const Vec<n> lhs , const float rhs  );
-template <int n> Vec<n>& operator*= ( Vec<n>& lhs      , const float rhs  );
-template <int n> Vec<n>  operator*  ( const float lhs  , const Vec<n> rhs );
-template <int n> Vec<n>  operator/  ( const Vec<n> lhs , const Vec<n> rhs );
-template <int n> Vec<n>& operator/= ( Vec<n>& lhs      , const Vec<n> rhs );
-template <int n> Vec<n>  operator/  ( const Vec<n> lhs , const float rhs  );
-template <int n> Vec<n>  operator/= ( Vec<n>& lhs      , const float rhs  );
+template <int n> Vec<n>  operator+          ( const Vec<n> lhs , const Vec<n> rhs );
+template <int n> Vec<n>& operator+=         ( Vec<n>& lhs      , const Vec<n> rhs );
+template <int n> Vec<n>  operator-          ( const Vec<n> lhs , const Vec<n> rhs );
+template <int n> Vec<n>& operator-=         ( Vec<n>& lhs      , const Vec<n> rhs );
+template <int n> Vec<n>  operator*          ( const Vec<n> lhs , const Vec<n> rhs );
+template <int n> Vec<n>& operator*=         ( Vec<n>& lhs      , const Vec<n> rhs );
+template <int n> Vec<n>  operator*          ( const Vec<n> lhs , const float rhs  );
+template <int n> Vec<n>& operator*=         ( Vec<n>& lhs      , const float rhs  );
+template <int n> Vec<n>  operator*          ( const float lhs  , const Vec<n> rhs );
+template <int n> Vec<n>  operator/          ( const Vec<n> lhs , const Vec<n> rhs );
+template <int n> Vec<n>& operator/=         ( Vec<n>& lhs      , const Vec<n> rhs );
+template <int n> Vec<n>  operator/          ( const Vec<n> lhs , const float rhs  );
+template <int n> Vec<n>  operator/=         ( Vec<n>& lhs      , const float rhs  );
 
 // vector-specific operations
-template <int n> float   dot        ( const Vec<n> lhs, const Vec<n> rhs );
-template <int n> Vec<n>  cross      ( const Vec<n> lhs, const Vec<n> rhs );
-template <int n> float   cross2D    ( const Vec<n> lhs, const Vec<n> rhs ); // only for vec2s
-template <int n> float   lengthsq   ( const Vec<n> in );
-template <int n> float   length     ( const Vec<n> in );
-template <int n> Vec<n>  normalize  ( const Vec<n> in );
+template <int n> float   dot                ( const Vec<n> lhs, const Vec<n> rhs );
+template <int n> Vec<n>  cross              ( const Vec<n> lhs, const Vec<n> rhs );
+template <int n> float   cross2D            ( const Vec<n> lhs, const Vec<n> rhs ); // only for vec2s
+template <int n> float   lengthsq           ( const Vec<n> in );
+template <int n> float   length             ( const Vec<n> in );
+template <int n> Vec<n>  normalize          ( const Vec<n> in );
 
 // free-floating constructors
-template <int n> Vec<n>  zero       ();
+template <int n> Vec<n>  zero               ( void );
+template <int n> void    zero               ( Vec<n>& in_out );
+
+// user should seed with srand() before calling random constructors
+template <int n> Vec<n>  randomInsideSphere ( float radius = 1.f );
+template <int n> void    randomInsideSphere ( Vec<n>& in_out, float radius = 1.f );
 
 // generic operator definitions
 template <int n>
@@ -274,4 +280,29 @@ Vec<n> zero() {
         out[i] = 0;
     }
     return out;
+}
+
+template <int n>
+void zero( Vec<n>& in_out ) {
+    for ( int i = 0; i < n; i++ ) {
+        in_out[i] = 0;
+    }
+}
+
+template <int n>
+Vec<n> randomInsideSphere( float radius ) {
+    Vec<n> out;
+    for ( int i = 0; i < n; i++ ) {
+        out[i] = static_cast<float>( rand() ) / RAND_MAX;
+    }
+    out *= ( radius / length( out ) );
+    return out;
+}
+
+template <int n>
+void randomInsideSphere( Vec<n>& in_out, float radius ) {
+    for ( int i = 0; i < n; i++ ) {
+        in_out[i] = static_cast<float>( rand() ) / RAND_MAX;
+    }
+    in_out *= ( radius / length( in_out ) );
 }
