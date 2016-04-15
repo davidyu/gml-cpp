@@ -120,8 +120,8 @@ template <int n> Vec<n>  zero               ( void );
 template <int n> void    zero               ( Vec<n>& in_out );
 
 // user should seed with srand() before calling random constructors
-template <int n> Vec<n>  randomInsideSphere ( float radius = 1.f );
-template <int n> void    randomInsideSphere ( Vec<n>& in_out, float radius = 1.f );
+template <int n> Vec<n>  randomOnSphere ( float radius = 1.f );
+template <int n> void    randomOnSphere ( Vec<n>& in_out, float radius = 1.f );
 
 // generic operator definitions
 template <int n>
@@ -290,7 +290,7 @@ void zero( Vec<n>& in_out ) {
 }
 
 template <int n>
-Vec<n> randomInsideSphere( float radius ) {
+Vec<n> randomOnSphere( float radius ) {
     Vec<n> out;
     for ( int i = 0; i < n; i++ ) {
         out[i] = static_cast<float>( rand() ) / RAND_MAX;
@@ -300,7 +300,7 @@ Vec<n> randomInsideSphere( float radius ) {
 }
 
 template <int n>
-void randomInsideSphere( Vec<n>& in_out, float radius ) {
+void randomOnSphere( Vec<n>& in_out, float radius ) {
     for ( int i = 0; i < n; i++ ) {
         in_out[i] = static_cast<float>( rand() ) / RAND_MAX;
     }

@@ -204,17 +204,17 @@ TEST_CASE( "vector methods", "" ) {
 TEST_CASE( "random constructors", "" ) {
     srand( time( NULL ) );
 
-    Vec2 a = randomInsideSphere<2>();
-    Vec3 b = randomInsideSphere<3>();
-    Vec4 c = randomInsideSphere<4>();
+    Vec2 a = randomOnSphere<2>();
+    Vec3 b = randomOnSphere<3>();
+    Vec4 c = randomOnSphere<4>();
 
     REQUIRE( fabs( length( a ) - 1 ) < EPSILON );
     REQUIRE( fabs( length( b ) - 1 ) < EPSILON );
     REQUIRE( fabs( length( c ) - 1 ) < EPSILON );
 
-    Vec2 d = randomInsideSphere<2>( 2 );
-    Vec3 e = randomInsideSphere<3>( 2 );
-    Vec4 f = randomInsideSphere<4>( 2 );
+    Vec2 d = randomOnSphere<2>( 2 );
+    Vec3 e = randomOnSphere<3>( 2 );
+    Vec4 f = randomOnSphere<4>( 2 );
 
     REQUIRE( fabs( length( d ) - 2 ) < EPSILON );
     REQUIRE( fabs( length( e ) - 2 ) < EPSILON );
@@ -224,9 +224,9 @@ TEST_CASE( "random constructors", "" ) {
     zero( b );
     zero( c );
 
-    randomInsideSphere( a );
-    randomInsideSphere( b );
-    randomInsideSphere( c );
+    randomOnSphere( a );
+    randomOnSphere( b );
+    randomOnSphere( c );
 
     REQUIRE( fabs( length( a ) - 1 ) < EPSILON );
     REQUIRE( fabs( length( b ) - 1 ) < EPSILON );
@@ -236,9 +236,9 @@ TEST_CASE( "random constructors", "" ) {
     zero( e );
     zero( f );
 
-    randomInsideSphere( d, 2 );
-    randomInsideSphere( e, 2 );
-    randomInsideSphere( f, 2 );
+    randomOnSphere( d, 2 );
+    randomOnSphere( e, 2 );
+    randomOnSphere( f, 2 );
 
     REQUIRE( fabs( length( d ) - 2 ) < EPSILON );
     REQUIRE( fabs( length( e ) - 2 ) < EPSILON );
