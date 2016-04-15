@@ -105,7 +105,11 @@ template <int n> Vec<n>  operator*          ( const float lhs  , const Vec<n> rh
 template <int n> Vec<n>  operator/          ( const Vec<n> lhs , const Vec<n> rhs );
 template <int n> Vec<n>& operator/=         ( Vec<n>& lhs      , const Vec<n> rhs );
 template <int n> Vec<n>  operator/          ( const Vec<n> lhs , const float rhs  );
-template <int n> Vec<n>  operator/=         ( Vec<n>& lhs      , const float rhs  );
+template <int n> Vec<n>& operator/=         ( Vec<n>& lhs      , const float rhs  );
+template <int n> Vec<n>  operator^          ( const Vec<n> lhs , const Vec<n> rhs );
+template <int n> Vec<n>& operator^=         ( Vec<n>& lhs      , const Vec<n> rhs );
+template <int n> Vec<n>  operator^          ( const Vec<n> lhs , const float rhs  );
+template <int n> Vec<n>& operator^=         ( Vec<n>& lhs      , const float rhs  );
 
 // vector-specific operations
 template <int n> float   dot                ( const Vec<n> lhs, const Vec<n> rhs );
@@ -224,11 +228,45 @@ Vec<n> operator/ ( const Vec<n> lhs, const float rhs ) {
 }
 
 template <int n>
-Vec<n> operator/= ( Vec<n>& lhs, const float rhs ) {
+Vec<n>& operator/= ( Vec<n>& lhs, const float rhs ) {
     for ( int i = 0; i < n; i++ ) {
         lhs[i] /= rhs;
     }
     return lhs;
+}
+
+template <int n>
+Vec<n>& operator^= ( Vec<n>& lhs, const Vec<n> rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        lhs[i] = pow( lhs[i], rhs[i] );
+    }
+    return lhs;
+}
+
+template <int n>
+Vec<n> operator^ ( const Vec<n> lhs, const Vec<n> rhs ) {
+    Vec<n> raised;
+    for ( int i = 0; i < n; i++ ) {
+        raised[i] = pow( lhs[i], rhs[i] );
+    }
+    return raised;
+}
+
+template <int n>
+Vec<n>& operator^= ( Vec<n>& lhs, const float rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        lhs[i] = pow( lhs[i], rhs );
+    }
+    return lhs;
+}
+
+template <int n>
+Vec<n> operator^ ( const Vec<n> lhs, const float rhs ) {
+    Vec<n> raised;
+    for ( int i = 0; i < n; i++ ) {
+        raised[i] = pow( lhs[i], rhs );
+    }
+    return raised;
 }
 
 template <int n>

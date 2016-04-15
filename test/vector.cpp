@@ -110,6 +110,16 @@ TEST_CASE( "vector operations", "" ) {
     REQUIRE( r[3] == 44 );
     REQUIRE( r[4] == 46 );
     REQUIRE( r[5] == 48 );
+
+    c = a ^ b;
+
+    REQUIRE( c.x == 1 );
+    REQUIRE( c.y == 16 );
+
+    c = a ^ 2;
+
+    REQUIRE( c.x == 1 );
+    REQUIRE( c.y == 4 );
 }
 
 TEST_CASE( "vector in-place modifier operations", "" ) {
@@ -168,6 +178,18 @@ TEST_CASE( "vector in-place modifier operations", "" ) {
     REQUIRE( p[3] == 44 );
     REQUIRE( p[4] == 46 );
     REQUIRE( p[5] == 48 );
+
+    a = { 1, 2 };
+    a ^= b;
+
+    REQUIRE( a.x == 1 );
+    REQUIRE( a.y == 16 );
+
+    a = { 1, 2 };
+    a ^= 2;
+
+    REQUIRE( a.x == 1 );
+    REQUIRE( a.y == 4 );
 }
 
 TEST_CASE( "vector methods", "" ) {
