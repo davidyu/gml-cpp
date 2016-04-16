@@ -331,7 +331,7 @@ template <int n>
 Vec<n> randomOnSphere( float radius ) {
     Vec<n> out;
     for ( int i = 0; i < n; i++ ) {
-        out[i] = static_cast<float>( rand() ) / RAND_MAX;
+        out[i] = drand48();
     }
     out *= ( radius / length( out ) );
     return out;
@@ -340,7 +340,7 @@ Vec<n> randomOnSphere( float radius ) {
 template <int n>
 void randomOnSphere( Vec<n>& in_out, float radius ) {
     for ( int i = 0; i < n; i++ ) {
-        in_out[i] = static_cast<float>( rand() ) / RAND_MAX;
+        in_out[i] = drand48();
     }
     in_out *= ( radius / length( in_out ) );
 }
