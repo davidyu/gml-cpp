@@ -1,5 +1,7 @@
 #include "collision.hpp"
 
+static const float EPSILON = 0.0001;
+
 bool gml::Collision::IntersectRaySphere( const gml::Ray    r
                                        , const gml::Sphere o
                                        , float&            t
@@ -38,7 +40,7 @@ bool gml::Collision::IntersectRayPlane( const gml::Ray   r
                                       , Vec3&            normal ) {
     t = ( pl.d - dot( pl.normal, r.origin ) ) / dot( pl.normal, r.direction );
 
-    if ( t >= 0 ) {
+    if ( t >= EPSILON ) {
         pt = r.at( t );
         normal = pl.normal;
         return true;
