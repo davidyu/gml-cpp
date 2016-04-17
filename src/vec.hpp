@@ -355,7 +355,7 @@ Vec<n> randomInSphere( float radius ) {
     Vec<n> out;
     do {
         for ( int i = 0; i < n; i++ ) {
-            out[i] = 2.0 * drand48() - 1;
+            out[i] = radius * ( 2.0 * drand48() - 1 );
         }
     } while ( lengthsq( out ) > rsq );
     return out;
@@ -366,7 +366,7 @@ void randomInSphere( Vec<n>& in_out, float radius ) {
     float rsq = radius * radius;
     do {
         for ( int i = 0; i < n; i++ ) {
-            in_out[i] = 2.0 * drand48() - 1;
+            in_out[i] = radius * ( 2.0 * drand48() - 1 );
         }
     } while ( lengthsq( in_out ) > rsq );
 }
