@@ -245,6 +245,9 @@ TEST_CASE( "random constructors", "" ) {
     zero( a );
     zero( b );
     zero( c );
+    zero( d );
+    zero( e );
+    zero( f );
 
     randomOnSphere( a );
     randomOnSphere( b );
@@ -254,10 +257,6 @@ TEST_CASE( "random constructors", "" ) {
     REQUIRE( fabs( length( b ) - 1 ) < EPSILON );
     REQUIRE( fabs( length( c ) - 1 ) < EPSILON );
 
-    zero( d );
-    zero( e );
-    zero( f );
-
     randomOnSphere( d, 2 );
     randomOnSphere( e, 2 );
     randomOnSphere( f, 2 );
@@ -265,4 +264,50 @@ TEST_CASE( "random constructors", "" ) {
     REQUIRE( fabs( length( d ) - 2 ) < EPSILON );
     REQUIRE( fabs( length( e ) - 2 ) < EPSILON );
     REQUIRE( fabs( length( f ) - 2 ) < EPSILON );
+
+    zero( a );
+    zero( b );
+    zero( c );
+    zero( d );
+    zero( e );
+    zero( f );
+
+    a = randomInSphere<2>();
+    b = randomInSphere<3>();
+    c = randomInSphere<4>();
+
+    REQUIRE( length( a ) <= 1 );
+    REQUIRE( length( b ) <= 1 );
+    REQUIRE( length( c ) <= 1 );
+
+    d = randomOnSphere<2>( 2 );
+    e = randomOnSphere<3>( 2 );
+    f = randomOnSphere<4>( 2 );
+
+    REQUIRE( length( d ) <= 2 );
+    REQUIRE( length( e ) <= 2 );
+    REQUIRE( length( f ) <= 2 );
+
+    zero( a );
+    zero( b );
+    zero( c );
+    zero( d );
+    zero( e );
+    zero( f );
+
+    randomOnSphere( a );
+    randomOnSphere( b );
+    randomOnSphere( c );
+
+    REQUIRE( length( a ) <= 1 );
+    REQUIRE( length( b ) <= 1 );
+    REQUIRE( length( c ) <= 1 );
+
+    randomOnSphere( d, 2 );
+    randomOnSphere( e, 2 );
+    randomOnSphere( f, 2 );
+
+    REQUIRE( length( d ) <= 2 );
+    REQUIRE( length( e ) <= 2 );
+    REQUIRE( length( f ) <= 2 );
 }

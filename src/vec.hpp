@@ -123,9 +123,13 @@ template <int n> Vec<n>  normalize          ( const Vec<n> in );
 template <int n> Vec<n>  zero               ( void );
 template <int n> void    zero               ( Vec<n>& in_out );
 
-// user should seed with srand() before calling random constructors
+// picks points on the surface of the n-sphere (n minus one-sphere)
 template <int n> Vec<n>  randomOnSphere ( float radius = 1.f );
 template <int n> void    randomOnSphere ( Vec<n>& in_out, float radius = 1.f );
+
+// picks points inside the n-sphere (n minus one-sphere)
+template <int n> Vec<n>  randomInSphere ( float radius = 1.f );
+template <int n> void    randomInSphere ( Vec<n>& in_out, float radius = 1.f );
 
 // generic operator definitions
 template <int n>
@@ -343,4 +347,26 @@ void randomOnSphere( Vec<n>& in_out, float radius ) {
         in_out[i] = 2.0 * drand48() - 1;
     }
     in_out *= ( radius / length( in_out ) );
+}
+
+template <int n>
+Vec<n> randomInSphere( float radius ) {
+    float rsq = radius * radius;
+    Vec<n> out;
+    do {
+        for ( int i = 0; i < n; i++ ) {
+            out[i] = 2.0 * drand48() - 1;
+        }
+    } while ( lengthsq( out ) > rsq );
+    return out;
+}
+
+template <int n>
+void randomInSphere( Vec<n>& in_out, float radius ) {
+    float rsq = radius * radius;
+    do {
+        for ( int i = 0; i < n; i++ ) {
+            in_out[i] = 2.0 * drand48() - 1;
+        }
+    } while ( lengthsq( in_out ) > rsq );
 }
