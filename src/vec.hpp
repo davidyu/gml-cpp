@@ -361,6 +361,16 @@ Vec<n> randomInSphere( float radius ) {
     return out;
 }
 
+template <>
+inline Vec<3> randomInSphere( float radius ) {
+    float u1 = 2.0 * drand48() - 1;
+    float u2 = drand48();
+    float r = sqrt( 1.0f - u1 * u1 );
+    float theta = 2.0f * M_PI * u2;
+
+    return Vec<3>( r * cosf( theta ), r * sinf( theta ), u1 );
+}
+
 template <int n>
 void randomInSphere( Vec<n>& in_out, float radius ) {
     float rsq = radius * radius;
@@ -369,4 +379,14 @@ void randomInSphere( Vec<n>& in_out, float radius ) {
             in_out[i] = radius * ( 2.0 * drand48() - 1 );
         }
     } while ( lengthsq( in_out ) > rsq );
+}
+
+template <>
+inline void randomInSphere( Vec<3>& in_out, float radius ) {
+    float u1 = 2.0 * drand48() - 1;
+    float u2 = drand48();
+    float r = sqrt( 1.0f - u1 * u1 );
+    float theta = 2.0f * M_PI * u2;
+
+    in_out = { r * cosf( theta ), r * sinf( theta ), u1 };
 }
