@@ -1,6 +1,6 @@
 #include "collision.hpp"
 
-static const float EPSILON = 0.0001;
+static const float EPSILON = 0.001;
 
 bool gml::Collision::IntersectRaySphere( const gml::Ray    r
                                        , const gml::Sphere o
