@@ -25,7 +25,10 @@ bool gml::Collision::IntersectRaySphere( const gml::Ray    r
     t = -b - sqrt( discr );
 
     // r starts inside o
-    if ( t < 0 ) return false;
+    if ( t < EPSILON ) {
+        t = -b + sqrt( discr );
+        if ( t < EPSILON ) return false;
+    }
 
     pt = r.at( t );
     normal = normalize( pt - o.center );
