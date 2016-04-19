@@ -363,12 +363,12 @@ Vec<n> randomInSphere( float radius ) {
 
 template <>
 inline Vec<3> randomInSphere( float radius ) {
-    float u1 = radius * ( 2.0 * drand48() - 1 );
+    float u1 = 2.0 * drand48() - 1;
     float u2 = drand48();
     float r = sqrt( 1.0f - u1 * u1 );
     float theta = 2.0f * M_PI * u2;
 
-    return Vec<3>( r * cosf( theta ), r * sinf( theta ), u1 );
+    return radius * Vec<3>( r * cosf( theta ), r * sinf( theta ), u1 );
 }
 
 template <int n>

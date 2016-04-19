@@ -280,6 +280,14 @@ TEST_CASE( "random constructors", "" ) {
     REQUIRE( length( b ) <= 1 );
     REQUIRE( length( c ) <= 1 );
 
+    a = randomInSphere<2>( 0.01 );
+    b = randomInSphere<3>( 0.01 );
+    c = randomInSphere<4>( 0.01 );
+
+    REQUIRE( length( a ) <= 0.01 );
+    REQUIRE( length( b ) <= 0.01 );
+    REQUIRE( length( c ) <= 0.01 );
+
     d = randomOnSphere<2>( 2 );
     e = randomOnSphere<3>( 2 );
     f = randomOnSphere<4>( 2 );
