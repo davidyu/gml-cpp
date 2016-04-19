@@ -97,6 +97,7 @@ template <int n> Vec<n>  operator+          ( const Vec<n> lhs , const Vec<n> rh
 template <int n> Vec<n>& operator+=         ( Vec<n>& lhs      , const Vec<n> rhs );
 template <int n> Vec<n>  operator-          ( const Vec<n> lhs , const Vec<n> rhs );
 template <int n> Vec<n>& operator-=         ( Vec<n>& lhs      , const Vec<n> rhs );
+template <int n> Vec<n>  operator-          ( const Vec<n> lhs                    );
 template <int n> Vec<n>  operator*          ( const Vec<n> lhs , const Vec<n> rhs );
 template <int n> Vec<n>& operator*=         ( Vec<n>& lhs      , const Vec<n> rhs );
 template <int n> Vec<n>  operator*          ( const Vec<n> lhs , const float rhs  );
@@ -164,6 +165,15 @@ Vec<n>& operator-= ( Vec<n>& lhs, const Vec<n> rhs ) {
         lhs[i] -= rhs[i];
     }
     return lhs;
+}
+
+template <int n>
+Vec<n> operator- ( const Vec<n> lhs ) {
+    Vec<n> negation;
+    for ( int i = 0; i < n; i++ ) {
+        negation[i] = -lhs[i];
+    }
+    return negation;
 }
 
 template <int n>

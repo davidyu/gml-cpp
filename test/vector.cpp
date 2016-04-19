@@ -120,6 +120,10 @@ TEST_CASE( "vector operations", "" ) {
 
     REQUIRE( c.x == 1 );
     REQUIRE( c.y == 4 );
+
+    c = -a;
+    REQUIRE( c.x == -1 );
+    REQUIRE( c.y == -2 );
 }
 
 TEST_CASE( "vector in-place modifier operations", "" ) {
