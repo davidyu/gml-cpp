@@ -115,7 +115,7 @@ template <int n> Vec<n>& operator^=         ( Vec<n>& lhs      , const float rhs
 // vector-specific operations
 template <int n> float   dot                ( const Vec<n> lhs, const Vec<n> rhs );
 template <int n> Vec<n>  cross              ( const Vec<n> lhs, const Vec<n> rhs );
-template <int n> float   cross2D            ( const Vec<n> lhs, const Vec<n> rhs ); // only for vec2s
+                 float   cross2D            ( const Vec2   lhs, const Vec2   rhs ); // only for vec2s
 template <int n> float   lengthsq           ( const Vec<n> in );
 template <int n> float   length             ( const Vec<n> in );
 template <int n> Vec<n>  normalize          ( const Vec<n> in );
@@ -322,9 +322,7 @@ Vec<n> cross( const Vec<n> lhs, const Vec<n> rhs ) {
            , lhs[0] * rhs[1] - lhs[1] * rhs[0] };
 }
 
-template <int n>
-float cross2D( const Vec<n> lhs, const Vec<n> rhs ) {
-    static_assert( n == 2, "cross2D only defined for Vec<2>!" );
+inline float cross2D( const Vec2 lhs, const Vec2 rhs ) {
     return lhs[0] * rhs[1] - lhs[1] * rhs[0];
 }
 
