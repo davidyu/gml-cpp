@@ -132,6 +132,9 @@ template <int n> void    randomOnSphere ( Vec<n>& in_out, float radius = 1.f );
 template <int n> Vec<n>  randomInSphere ( float radius = 1.f );
 template <int n> void    randomInSphere ( Vec<n>& in_out, float radius = 1.f );
 
+// picks a point inside a 2D disk
+                 Vec2    randomInDisk   ( float radius = 1.f );
+
 // generic operator definitions
 template <int n>
 Vec<n> operator+ ( const Vec<n> lhs, const Vec<n> rhs ) {
@@ -399,4 +402,11 @@ inline void randomInSphere( Vec<3>& in_out, float radius ) {
     float theta = 2.0f * M_PI * u2;
 
     in_out = { r * cosf( theta ), r * sinf( theta ), u1 };
+}
+
+inline Vec2 randomInDisk( float radius ) {
+    float t = 2 * M_PI * drand48();
+    float u = drand48() * drand48();
+    float r = u > 1 ? 2 - u : u;
+    return Vec2( radius * r * cos( t ), radius * r * sin( t ) );
 }
