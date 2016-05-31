@@ -2,11 +2,11 @@
 
 static const float EPSILON = 0.001;
 
-bool gml::Collision::IntersectRaySphere( const gml::Ray    r
-                                       , const gml::Sphere o
-                                       , float&            t
-                                       , Vec3&             pt
-                                       , Vec3&             normal ) {
+bool gml::IntersectRaySphere( const gml::Ray    r
+                            , const gml::Sphere o
+                            , float&            t
+                            , Vec3&             pt
+                            , Vec3&             normal ) {
     // calculations assume r.direction (d) is normalized, which it (generally) is
     Vec3 d = r.direction;
     Vec3 p = r.origin - o.center;
@@ -36,11 +36,11 @@ bool gml::Collision::IntersectRaySphere( const gml::Ray    r
     return true;
 }
 
-bool gml::Collision::IntersectRayPlane( const gml::Ray   r
-                                      , const gml::Plane pl
-                                      , float&           t
-                                      , Vec3&            pt
-                                      , Vec3&            normal ) {
+bool gml::IntersectRayPlane( const gml::Ray   r
+                           , const gml::Plane pl
+                           , float&           t
+                           , Vec3&            pt
+                           , Vec3&            normal ) {
     t = ( pl.d - dot( pl.normal, r.origin ) ) / dot( pl.normal, r.direction );
 
     if ( t >= EPSILON ) {
