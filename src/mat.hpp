@@ -7,6 +7,14 @@ template <int rows, int cols> struct Mat {
         float data[rows][cols];
         float flat[rows * cols];
     };
+
+    float& operator[]( const int i ) {
+        return this->flat[i];
+    }
+
+    const float& operator[]( const int i ) const {
+        return this->flat[i];
+    }
 };
 
 template<> struct Mat<4,4> {
@@ -16,11 +24,20 @@ template<> struct Mat<4,4> {
         struct { float m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33; };
         struct { float r00, r01, r02,  tx, r10, r11, r12,  ty, r20, r21, r22,  tz; };
     };
+
+    float& operator[]( const int i ) {
+        return this->flat[i];
+    }
+
+    const float& operator[]( const int i ) const {
+        return this->flat[i];
+    }
 };
 
 typedef Mat<4,4> Mat4;
 
-void transpose( const Mat4 in, Mat4& out );
+template <int n> void transpose( const Mat<n,n> in, Mat<n,n>& out );
+
 void matmul( const Mat4 lhs, const Mat4 rhs, Mat4& out );
 void vecmat( const Vec4 lhs, const Mat4 rhs, Vec4& out );
 
@@ -34,6 +51,15 @@ template<int N> Mat<N,N> identity() {
         out.flat[i] = 1;
     }
     return out;
+}
+
+template<int n>
+void transpose( const Mat<n,n> in, Mat<n,n>& out ) {
+    for ( int i = 0; i < n; i++ ) {
+        for ( int j = 0; j < n; j++ ) {
+            out.data[i][j] = in.data[j][i];
+        }
+    }
 }
 
 inline Mat4 operator *( const Mat4& lhs, const Mat4& rhs ) {

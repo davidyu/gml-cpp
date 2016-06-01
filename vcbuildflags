@@ -1,1 +1,1 @@
--Zi ..\test\test.cpp ..\test\vector.cpp ..\src\mat.cpp -I..\src -I..\test\lib
+-Zi ..\test\test.cpp ..\test\vector.cpp ..\test\matrix.cpp ..\src\mat.cpp -I..\src -I..\test\lib

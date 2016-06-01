@@ -6,14 +6,6 @@ typedef uint8_t uint8;
 typedef uint16_t uint16;
 typedef uint32_t uint32;
 
-void transpose( const Mat4 in, Mat4& out ) {
-    for ( uint8 i = 0; i < 4; i++ ) {
-        for ( uint8 j = 0; j < 4; j++ ) {
-            out.data[i][j] = in.data[j][i];
-        }
-    }
-}
-
 void matmul( const Mat4 lhs, const Mat4 rhs, Mat4& out ) {
     for ( uint8 i = 0; i < 4; i++ ) {
         for ( uint8 j = 0; j < 4; j++ ) {
