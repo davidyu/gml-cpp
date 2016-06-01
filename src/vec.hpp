@@ -1,5 +1,8 @@
 #pragma once
 
+#define _USE_MATH_DEFINES // needed for M_PI to exist on Windows
+
+#include "math_extensions.hpp"
 #include <math.h>
 #include <stdlib.h>
 
@@ -32,8 +35,7 @@ template<> struct Vec<2> {
     Vec( float _x, float _y )
         : x( _x ) , y( _y ) {}
 
-    Vec()
-        : x( 0 ), y ( 0 ) {}
+    Vec(): x( 0 ) , y( 0 ) {}
 
     float& operator[]( const int i ) {
         return this->vals[i];
@@ -55,8 +57,7 @@ template<> struct Vec<3> {
     Vec( float _x, float _y, float _z )
         : x( _x ), y( _y ), z( _z ) {}
 
-    Vec()
-        : x( 0 ), y( 0 ), z( 0 ) {}
+    Vec(): x( 0 ) , y( 0 ), z( 0 )  {}
 
     float& operator[]( const int i ) {
         return this->v[i];
@@ -80,8 +81,7 @@ template<> struct Vec<4> {
     Vec( float _x, float _y, float _z, float _w )
         : x( _x ), y( _y ), z( _z ), w( _w ) {}
 
-    Vec()
-        : x( 0 ), y( 0 ), z( 0 ), w( 1 ) {}
+    Vec(): x( 0 ) , y( 0 ), z( 0 ), w( 0 )  {}
 
     float& operator[]( const int i ) {
         return this->v[i];
@@ -346,7 +346,7 @@ template <int n>
 Vec<n> randomOnSphere( float radius ) {
     Vec<n> out;
     for ( int i = 0; i < n; i++ ) {
-        out[i] = 2.0 * drand48() - 1;
+        out[i] = 2.0 * random() - 1;
     }
     out *= ( radius / length( out ) );
     return out;
@@ -355,7 +355,7 @@ Vec<n> randomOnSphere( float radius ) {
 template <int n>
 void randomOnSphere( Vec<n>& in_out, float radius ) {
     for ( int i = 0; i < n; i++ ) {
-        in_out[i] = 2.0 * drand48() - 1;
+        in_out[i] = 2.0 * random() - 1;
     }
     in_out *= ( radius / length( in_out ) );
 }
@@ -366,7 +366,7 @@ Vec<n> randomInSphere( float radius ) {
     Vec<n> out;
     do {
         for ( int i = 0; i < n; i++ ) {
-            out[i] = radius * ( 2.0 * drand48() - 1 );
+            out[i] = radius * ( 2.0 * random() - 1 );
         }
     } while ( lengthsq( out ) > rsq );
     return out;
@@ -374,8 +374,8 @@ Vec<n> randomInSphere( float radius ) {
 
 template <>
 inline Vec<3> randomInSphere( float radius ) {
-    float u1 = 2.0 * drand48() - 1;
-    float u2 = drand48();
+    float u1 = 2.0 * random() - 1;
+    float u2 = random();
     float r = sqrt( 1.0f - u1 * u1 );
     float theta = 2.0f * M_PI * u2;
 
@@ -387,15 +387,15 @@ void randomInSphere( Vec<n>& in_out, float radius ) {
     float rsq = radius * radius;
     do {
         for ( int i = 0; i < n; i++ ) {
-            in_out[i] = radius * ( 2.0 * drand48() - 1 );
+            in_out[i] = radius * ( 2.0 * random() - 1 );
         }
     } while ( lengthsq( in_out ) > rsq );
 }
 
 template <>
 inline void randomInSphere( Vec<3>& in_out, float radius ) {
-    float u1 = 2.0 * drand48() - 1;
-    float u2 = drand48();
+    float u1 = 2.0 * random() - 1;
+    float u2 = random();
     float r = sqrt( 1.0f - u1 * u1 );
     float theta = 2.0f * M_PI * u2;
 
@@ -403,8 +403,8 @@ inline void randomInSphere( Vec<3>& in_out, float radius ) {
 }
 
 inline Vec2 randomInDisk( float radius ) {
-    float t = 2 * M_PI * drand48();
-    float u = drand48() * drand48();
+    float t = 2 * M_PI * random();
+    float u = random() * random();
     float r = u > 1 ? 2 - u : u;
     return Vec2( radius * r * cos( t ), radius * r * sin( t ) );
 }
