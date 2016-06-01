@@ -280,25 +280,25 @@ TEST_CASE( "random constructors", "" ) {
     b = randomInSphere<3>();
     c = randomInSphere<4>();
 
-    REQUIRE( length( a ) <= 1 );
-    REQUIRE( length( b ) <= 1 );
-    REQUIRE( length( c ) <= 1 );
+    REQUIRE( length( a ) <= 1.0 + EPSILON );
+    REQUIRE( length( b ) <= 1.0 + EPSILON );
+    REQUIRE( length( c ) <= 1.0 + EPSILON );
 
     a = randomInSphere<2>( 0.01 );
     b = randomInSphere<3>( 0.01 );
     c = randomInSphere<4>( 0.01 );
 
-    REQUIRE( length( a ) <= 0.01 );
-    REQUIRE( length( b ) <= 0.01 );
-    REQUIRE( length( c ) <= 0.01 );
+    REQUIRE( length( a ) <= 0.01 + EPSILON );
+    REQUIRE( length( b ) <= 0.01 + EPSILON );
+    REQUIRE( length( c ) <= 0.01 + EPSILON );
 
     d = randomOnSphere<2>( 2 );
     e = randomOnSphere<3>( 2 );
     f = randomOnSphere<4>( 2 );
 
-    REQUIRE( length( d ) <= 2 );
-    REQUIRE( length( e ) <= 2 );
-    REQUIRE( length( f ) <= 2 );
+    REQUIRE( fabs( length( d ) - 2 ) < EPSILON );
+    REQUIRE( fabs( length( e ) - 2 ) < EPSILON );
+    REQUIRE( fabs( length( f ) - 2 ) < EPSILON );
 
     zero( a );
     zero( b );
@@ -311,15 +311,15 @@ TEST_CASE( "random constructors", "" ) {
     randomOnSphere( b );
     randomOnSphere( c );
 
-    REQUIRE( length( a ) <= 1 );
-    REQUIRE( length( b ) <= 1 );
-    REQUIRE( length( c ) <= 1 );
+    REQUIRE( fabs( length( a ) - 1 ) < EPSILON );
+    REQUIRE( fabs( length( b ) - 1 ) < EPSILON );
+    REQUIRE( fabs( length( c ) - 1 ) < EPSILON );
 
     randomOnSphere( d, 2 );
     randomOnSphere( e, 2 );
     randomOnSphere( f, 2 );
 
-    REQUIRE( length( d ) <= 2 );
-    REQUIRE( length( e ) <= 2 );
-    REQUIRE( length( f ) <= 2 );
+    REQUIRE( fabs( length( d ) - 2 ) < EPSILON );
+    REQUIRE( fabs( length( e ) - 2 ) < EPSILON );
+    REQUIRE( fabs( length( f ) - 2 ) < EPSILON );
 }

@@ -9,7 +9,7 @@ inline float random() {
 #if defined ( _WIN64 )
     unsigned int n;
     rand_s( &n );
-    return static_cast<float>( n ) / static_cast<float>( UINT_MAX + 1 );
+    return static_cast<float>( n ) / ( static_cast<double>( UINT_MAX ) + 1.0 );
 #else
     return drand48();
 #endif

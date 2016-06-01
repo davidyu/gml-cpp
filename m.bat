@@ -3,7 +3,7 @@
 @set SRC=src
 @set DIST=bin
 @set TEST=test
-@set BUILD_USING_VISUAL_STUDIO=0
+@set BUILD_USING_VISUAL_STUDIO=1
 
 @echo updating vendor code...
 
