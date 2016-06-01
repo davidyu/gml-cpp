@@ -3,7 +3,36 @@
 
 static const float EPSILON = 1e-6;
 
-TEST_CASE( "base matrix accessors", "" ) {
+TEST_CASE( "simple matrix constructors", "" ) {
+    Mat<1,1> a = zero<1,1>();
+
+    REQUIRE( a.flat[0] == 0 );
+
+    Mat<2,3> b = zero<2,3>();
+
+    REQUIRE( b.m[0][0] == 0 );
+    REQUIRE( b.m[0][1] == 0 );
+    REQUIRE( b.m[0][2] == 0 );
+    REQUIRE( b.m[1][0] == 0 );
+    REQUIRE( b.m[1][1] == 0 );
+    REQUIRE( b.m[1][2] == 0 );
+
+    Mat<100,100> c = zero<100,100>();
+    for ( int i = 0; i < 10000; i++ ) REQUIRE( c[i] == 0 );
+
+    Mat<3,3> d = identity<3>();
+    REQUIRE( d.m[0][0] == 1 );
+    REQUIRE( d.m[0][1] == 0 );
+    REQUIRE( d.m[0][2] == 0 );
+    REQUIRE( d.m[1][0] == 0 );
+    REQUIRE( d.m[1][1] == 1 );
+    REQUIRE( d.m[1][2] == 0 );
+    REQUIRE( d.m[2][0] == 0 );
+    REQUIRE( d.m[2][1] == 0 );
+    REQUIRE( d.m[2][2] == 1 );
+}
+
+TEST_CASE( "matrix accessors", "" ) {
     Mat<1,1> x = { 5 };
     REQUIRE( x[0] == 5 );
     x[0] = 9;
@@ -16,8 +45,8 @@ TEST_CASE( "base matrix accessors", "" ) {
     REQUIRE( xy[3] == 4 );
 
     Mat<100,100> big;
-    for ( int i = 0; i < 100; i++ ) big[i] = i;
-    for ( int i = 0; i < 100; i++ ) REQUIRE( big[i] == i );
+    for ( int i = 0; i < 10000; i++ ) big[i] = i;
+    for ( int i = 0; i < 10000; i++ ) REQUIRE( big[i] == i );
 }
 
 TEST_CASE( "structured matrix accessors", "" ) {
