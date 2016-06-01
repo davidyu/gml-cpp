@@ -22,7 +22,7 @@ template<> struct Mat<3,3> {
         float data[3][3];
         float flat[9];
         struct { float m00, m01, m02, m10, m11, m12, m20, m21, m22; };
-        struct { float r00, r01,  tx, r10, r11,  ty, r20, r21, m22; };
+        struct { float r00, r01, r02, r10, r11, r12, r20, r21, r22; };
     };
 
     float& operator[]( const int i ) {

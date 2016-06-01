@@ -31,6 +31,15 @@ TEST_CASE( "structured matrix accessors", "" ) {
     REQUIRE( a.m20 == 7 );
     REQUIRE( a.m21 == 8 );
     REQUIRE( a.m22 == 9 );
+    REQUIRE( a.r00 == 1 );
+    REQUIRE( a.r01 == 2 );
+    REQUIRE( a.r02 == 3 );
+    REQUIRE( a.r10 == 4 );
+    REQUIRE( a.r11 == 5 );
+    REQUIRE( a.r12 == 6 );
+    REQUIRE( a.r20 == 7 );
+    REQUIRE( a.r21 == 8 );
+    REQUIRE( a.r22 == 9 );
 
     Mat4 b = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
     REQUIRE( b.m00 == 1 );
@@ -45,6 +54,22 @@ TEST_CASE( "structured matrix accessors", "" ) {
     REQUIRE( b.m21 == 10 );
     REQUIRE( b.m22 == 11 );
     REQUIRE( b.m23 == 12 );
+    REQUIRE( b.m30 == 13 );
+    REQUIRE( b.m31 == 14 );
+    REQUIRE( b.m32 == 15 );
+    REQUIRE( b.m33 == 16 );
+    REQUIRE( b.m00 == 1 );
+    REQUIRE( b.m01 == 2 );
+    REQUIRE( b.m02 == 3 );
+    REQUIRE( b.tx  == 4 );
+    REQUIRE( b.m10 == 5 );
+    REQUIRE( b.m11 == 6 );
+    REQUIRE( b.m12 == 7 );
+    REQUIRE( b.ty  == 8 );
+    REQUIRE( b.m20 == 9 );
+    REQUIRE( b.m21 == 10 );
+    REQUIRE( b.m22 == 11 );
+    REQUIRE( b.tz  == 12 );
     REQUIRE( b.m30 == 13 );
     REQUIRE( b.m31 == 14 );
     REQUIRE( b.m32 == 15 );
