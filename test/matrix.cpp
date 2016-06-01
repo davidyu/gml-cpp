@@ -21,7 +21,21 @@ TEST_CASE( "base matrix accessors", "" ) {
 }
 
 TEST_CASE( "structured matrix accessors", "" ) {
-    Vec2 xy = { 1, 2 };
-    REQUIRE( xy.x == 1 );
-    REQUIRE( xy.y == 2 );
+    Mat4 x = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    REQUIRE( x.m00 == 1 );
+    REQUIRE( x.m01 == 2 );
+    REQUIRE( x.m02 == 3 );
+    REQUIRE( x.m03 == 4 );
+    REQUIRE( x.m10 == 5 );
+    REQUIRE( x.m11 == 6 );
+    REQUIRE( x.m12 == 7 );
+    REQUIRE( x.m13 == 8 );
+    REQUIRE( x.m20 == 9 );
+    REQUIRE( x.m21 == 10 );
+    REQUIRE( x.m22 == 11 );
+    REQUIRE( x.m23 == 12 );
+    REQUIRE( x.m30 == 13 );
+    REQUIRE( x.m31 == 14 );
+    REQUIRE( x.m32 == 15 );
+    REQUIRE( x.m33 == 16 );
 }
