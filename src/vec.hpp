@@ -346,7 +346,7 @@ template <int n>
 Vec<n> randomOnSphere( float radius ) {
     Vec<n> out;
     for ( int i = 0; i < n; i++ ) {
-        out[i] = 2.0 * random() - 1;
+        out[i] = 2.0 * random_float() - 1;
     }
     out *= ( radius / length( out ) );
     return out;
@@ -355,7 +355,7 @@ Vec<n> randomOnSphere( float radius ) {
 template <int n>
 void randomOnSphere( Vec<n>& in_out, float radius ) {
     for ( int i = 0; i < n; i++ ) {
-        in_out[i] = 2.0 * random() - 1;
+        in_out[i] = 2.0 * random_float() - 1;
     }
     in_out *= ( radius / length( in_out ) );
 }
@@ -366,7 +366,7 @@ Vec<n> randomInSphere( float radius ) {
     Vec<n> out;
     do {
         for ( int i = 0; i < n; i++ ) {
-            out[i] = radius * ( 2.0 * random() - 1 );
+            out[i] = radius * ( 2.0 * random_float() - 1 );
         }
     } while ( lengthsq( out ) > rsq );
     return out;
@@ -374,8 +374,8 @@ Vec<n> randomInSphere( float radius ) {
 
 template <>
 inline Vec<3> randomInSphere( float radius ) {
-    float u1 = 2.0 * random() - 1;
-    float u2 = random();
+    float u1 = 2.0 * random_float() - 1;
+    float u2 = random_float();
     float r = sqrt( 1.0f - u1 * u1 );
     float theta = 2.0f * M_PI * u2;
 
@@ -387,15 +387,15 @@ void randomInSphere( Vec<n>& in_out, float radius ) {
     float rsq = radius * radius;
     do {
         for ( int i = 0; i < n; i++ ) {
-            in_out[i] = radius * ( 2.0 * random() - 1 );
+            in_out[i] = radius * ( 2.0 * random_float() - 1 );
         }
     } while ( lengthsq( in_out ) > rsq );
 }
 
 template <>
 inline void randomInSphere( Vec<3>& in_out, float radius ) {
-    float u1 = 2.0 * random() - 1;
-    float u2 = random();
+    float u1 = 2.0 * random_float() - 1;
+    float u2 = random_float();
     float r = sqrt( 1.0f - u1 * u1 );
     float theta = 2.0f * M_PI * u2;
 
@@ -403,8 +403,8 @@ inline void randomInSphere( Vec<3>& in_out, float radius ) {
 }
 
 inline Vec2 randomInDisk( float radius ) {
-    float t = 2 * M_PI * random();
-    float u = random() * random();
+    float t = 2 * M_PI * random_float();
+    float u = random_float() * random_float();
     float r = u > 1 ? 2 - u : u;
     return Vec2( radius * r * cos( t ), radius * r * sin( t ) );
 }
