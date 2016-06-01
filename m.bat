@@ -3,7 +3,7 @@
 @set SRC=src
 @set DIST=bin
 @set TEST=test
-@set BUILD_USING_VISUAL_STUDIO=1
+@set BUILD_USING_VISUAL_STUDIO=0
 
 @echo updating vendor code...
 
@@ -15,10 +15,10 @@ call update
 
 @if not exist %DIST% mkdir %DIST%
 
-if %BUILD_USING_VISUAL_STUDIO%==1 (
+@if %BUILD_USING_VISUAL_STUDIO%==1 (
     @pushd %DIST%
     cl @..\vcbuildflags
     @popd
 ) else (
-    g++ -std=c++11 -I./src -I./test -o %DIST%/test.exe ./src/mat.cpp ./test/test.cpp
+    g++ -std=c++11 -I./src -I./test -o %DIST%/test.exe ./src/mat.cpp ./test/test.cpp ./test/vector.cpp
 )
