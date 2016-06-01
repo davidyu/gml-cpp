@@ -105,7 +105,7 @@ TEST_CASE( "structured matrix accessors", "" ) {
     REQUIRE( b.m33 == 16 );
 }
 
-TEST_CASE( "transpose tests", "" ) {
+TEST_CASE( "transpose", "" ) {
     Mat3 a = { 1, 2, 3
              , 4, 5, 6
              , 7, 8, 9 };
@@ -170,4 +170,53 @@ TEST_CASE( "transpose tests", "" ) {
     REQUIRE( b.m31 == 8  );
     REQUIRE( b.m32 == 12 );
     REQUIRE( b.m33 == 16 );
+}
+
+TEST_CASE( "operations", "" ) {
+    Mat4 a = identity<4>();
+    Mat4 b = { 1  , 2  , 3  , 4
+             , 5  , 6  , 7  , 8
+             , 9  , 10 , 11 , 12
+             , 13 , 14 , 15 , 16 };
+
+    Mat4 axb = a * b;
+    REQUIRE( axb.m00 == 1 );
+    REQUIRE( axb.m01 == 2 );
+    REQUIRE( axb.m02 == 3 );
+    REQUIRE( axb.m03 == 4 );
+    REQUIRE( axb.m10 == 5 );
+    REQUIRE( axb.m11 == 6 );
+    REQUIRE( axb.m12 == 7 );
+    REQUIRE( axb.m13 == 8 );
+    REQUIRE( axb.m20 == 9 );
+    REQUIRE( axb.m21 == 10 );
+    REQUIRE( axb.m22 == 11 );
+    REQUIRE( axb.m23 == 12 );
+    REQUIRE( axb.m30 == 13 );
+    REQUIRE( axb.m31 == 14 );
+    REQUIRE( axb.m32 == 15 );
+    REQUIRE( axb.m33 == 16 );
+
+    Mat4 c = { 17, 18, 19, 20
+             , 21, 22, 23, 24
+             , 25, 26, 27, 28
+             , 29, 30, 31, 32 };
+
+    Mat4 bxc = b * c;
+    REQUIRE( bxc.m00 == 250 );
+    REQUIRE( bxc.m01 == 260 );
+    REQUIRE( bxc.m02 == 270 );
+    REQUIRE( bxc.m03 == 280 );
+    REQUIRE( bxc.m10 == 618 );
+    REQUIRE( bxc.m11 == 644 );
+    REQUIRE( bxc.m12 == 670 );
+    REQUIRE( bxc.m13 == 696 );
+    REQUIRE( bxc.m20 == 986 );
+    REQUIRE( bxc.m21 == 1028 );
+    REQUIRE( bxc.m22 == 1070 );
+    REQUIRE( bxc.m23 == 1112 );
+    REQUIRE( bxc.m30 == 1354 );
+    REQUIRE( bxc.m31 == 1412 );
+    REQUIRE( bxc.m32 == 1470 );
+    REQUIRE( bxc.m33 == 1528 );
 }

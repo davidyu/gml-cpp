@@ -55,7 +55,8 @@ template<> struct Mat<4,4> {
 typedef Mat<4,4> Mat4;
 typedef Mat<3,3> Mat3;
 
-template <int rows, int cols> Mat<rows,cols> zero();
+template <int rows, int cols>     Mat<rows, cols> zero();
+template <int r1, int c1, int c2> Mat<r1, c2>     operator *( const Mat<r1, c1>& lhs, const Mat<c1, c2>& rhs );
 
 // square matrix functions
 template <int n> void     transpose( const Mat<n,n> in, Mat<n,n>& out );
@@ -92,9 +93,18 @@ void transpose( const Mat<n,n> in, Mat<n,n>& out ) {
     }
 }
 
-inline Mat4 operator *( const Mat4& lhs, const Mat4& rhs ) {
-    Mat4 out;
-    matmul( lhs, rhs, out );
+template<int r1, int c1, int c2>
+Mat<r1, c2> operator*( const Mat<r1, c1>& lhs, const Mat<c1, c2>& rhs ) {
+    Mat<r1, c2> out;
+    for ( int i = 0; i < r1; i++ ) {
+        for ( int j = 0; j < c2; j++ ) {
+            float sum = 0;
+            for ( int k = 0; k < c1; k++ ) {
+                sum += lhs.m[i][k] * rhs.m[k][j];
+            }
+            out.m[i][j] = sum;
+        }
+    }
     return out;
 }
 
