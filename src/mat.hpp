@@ -17,6 +17,24 @@ template <int rows, int cols> struct Mat {
     }
 };
 
+template<> struct Mat<3,3> {
+    union {
+        float data[3][3];
+        float flat[9];
+        struct { float m00, m01, m02, m10, m11, m12, m20, m21, m22; };
+        struct { float r00, r01,  tx, r10, r11,  ty, r20, r21, m22; };
+    };
+
+    float& operator[]( const int i ) {
+        return this->flat[i];
+    }
+
+    const float& operator[]( const int i ) const {
+        return this->flat[i];
+    }
+};
+
+
 template<> struct Mat<4,4> {
     union {
         float data[4][4];
@@ -35,6 +53,7 @@ template<> struct Mat<4,4> {
 };
 
 typedef Mat<4,4> Mat4;
+typedef Mat<3,3> Mat3;
 
 template <int n> void transpose( const Mat<n,n> in, Mat<n,n>& out );
 

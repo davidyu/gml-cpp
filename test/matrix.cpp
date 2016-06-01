@@ -21,21 +21,32 @@ TEST_CASE( "base matrix accessors", "" ) {
 }
 
 TEST_CASE( "structured matrix accessors", "" ) {
-    Mat4 x = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-    REQUIRE( x.m00 == 1 );
-    REQUIRE( x.m01 == 2 );
-    REQUIRE( x.m02 == 3 );
-    REQUIRE( x.m03 == 4 );
-    REQUIRE( x.m10 == 5 );
-    REQUIRE( x.m11 == 6 );
-    REQUIRE( x.m12 == 7 );
-    REQUIRE( x.m13 == 8 );
-    REQUIRE( x.m20 == 9 );
-    REQUIRE( x.m21 == 10 );
-    REQUIRE( x.m22 == 11 );
-    REQUIRE( x.m23 == 12 );
-    REQUIRE( x.m30 == 13 );
-    REQUIRE( x.m31 == 14 );
-    REQUIRE( x.m32 == 15 );
-    REQUIRE( x.m33 == 16 );
+    Mat3 a = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    REQUIRE( a.m00 == 1 );
+    REQUIRE( a.m01 == 2 );
+    REQUIRE( a.m02 == 3 );
+    REQUIRE( a.m10 == 4 );
+    REQUIRE( a.m11 == 5 );
+    REQUIRE( a.m12 == 6 );
+    REQUIRE( a.m20 == 7 );
+    REQUIRE( a.m21 == 8 );
+    REQUIRE( a.m22 == 9 );
+
+    Mat4 b = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+    REQUIRE( b.m00 == 1 );
+    REQUIRE( b.m01 == 2 );
+    REQUIRE( b.m02 == 3 );
+    REQUIRE( b.m03 == 4 );
+    REQUIRE( b.m10 == 5 );
+    REQUIRE( b.m11 == 6 );
+    REQUIRE( b.m12 == 7 );
+    REQUIRE( b.m13 == 8 );
+    REQUIRE( b.m20 == 9 );
+    REQUIRE( b.m21 == 10 );
+    REQUIRE( b.m22 == 11 );
+    REQUIRE( b.m23 == 12 );
+    REQUIRE( b.m30 == 13 );
+    REQUIRE( b.m31 == 14 );
+    REQUIRE( b.m32 == 15 );
+    REQUIRE( b.m33 == 16 );
 }
