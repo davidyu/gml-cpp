@@ -6,7 +6,7 @@
 
 // returns a random float between 0 and 1.
 inline float random() {
-#if defined ( _WIN64 ) || defined( WIN64 )
+#if defined ( _WIN64 )
     unsigned int n;
     rand_s( &n );
     return static_cast<float>( n ) / static_cast<float>( UINT_MAX + 1 );

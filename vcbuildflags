@@ -1,0 +1,1 @@
+-Zi ..\test\test.cpp ..\src\mat.cpp -I..\src -I..\test\lib
