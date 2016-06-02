@@ -56,14 +56,14 @@ typedef Mat<4,4> Mat4;
 typedef Mat<3,3> Mat3;
 
 template <int rows, int cols>     Mat<rows, cols> zero();
-template <int r1, int c1, int c2> Mat<r1, c2>     operator *( const Mat<r1, c1>& lhs, const Mat<c1, c2>& rhs );
+
+template <int r1, int c1, int c2> Mat<r1, c2>     operator* ( const Mat<r1, c1>& lhs    , const Mat<c1, c2>& rhs     );
+template <int rows, int cols>     Vec<cols>       operator* ( const Vec<rows>& lhs      , const Mat<rows, cols>& rhs ); // row-vector * matrix
+template <int rows, int cols>     Vec<rows>       operator* ( const Mat<rows, cols>& lhs, const Vec<cols>& rhs       ); // matrix * column-vector
 
 // square matrix functions
 template <int n> void     transpose( const Mat<n,n> in, Mat<n,n>& out );
-template <int n> Mat<n,n> identity();
-
-void matmul( const Mat4 lhs, const Mat4 rhs, Mat4& out );
-void vecmat( const Vec4 lhs, const Mat4 rhs, Vec4& out );
+template <int n> Mat<n,n> identity ();
 
 Mat4 fromRows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 );
 Mat4 fromCols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 );
@@ -108,8 +108,28 @@ Mat<r1, c2> operator*( const Mat<r1, c1>& lhs, const Mat<c1, c2>& rhs ) {
     return out;
 }
 
-inline Vec4 operator *( const Vec4& lhs, const Mat4& rhs ) {
-    Vec4 out;
-    vecmat( lhs, rhs, out );
+template<int rows, int cols>
+Vec<cols> operator*( const Vec<rows>& lhs, const Mat<rows, cols>& rhs ) {
+    Vec<cols> out;
+    for ( int i = 0; i < cols; i++ ) {
+       float sum = 0;
+       for ( int j = 0; j < rows; j++ ) {
+           sum += lhs.v[j] * rhs.m[j][i];
+       }
+       out.v[i] = sum;
+    }
+    return out;
+}
+
+template<int rows, int cols>
+Vec<rows> operator*( const Mat<rows, cols>& lhs, const Vec<cols>& rhs ) {
+    Vec<rows> out;
+    for ( int i = 0; i < rows; i++ ) {
+       float sum = 0;
+       for ( int j = 0; j < cols; j++ ) {
+           sum += lhs.m[i][j] * rhs.v[j];
+       }
+       out.v[i] = sum;
+    }
     return out;
 }

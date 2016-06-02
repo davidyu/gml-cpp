@@ -26,10 +26,9 @@ typedef Vec<4> Vec4;
 // specialized definitions for Vec2, Vec3, and Vec4
 template<> struct Vec<2> {
     union {
-        float vals[2];
+        float v[2];
         struct { float x, y; };
         struct { float r, g; };
-        struct { float u, v; };
     };
 
     Vec( float _x, float _y )
@@ -38,11 +37,11 @@ template<> struct Vec<2> {
     Vec(): x( 0 ) , y( 0 ) {}
 
     float& operator[]( const int i ) {
-        return this->vals[i];
+        return this->v[i];
     }
 
     const float& operator[]( const int i ) const {
-        return this->vals[i];
+        return this->v[i];
     }
 };
 

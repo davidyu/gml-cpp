@@ -172,7 +172,7 @@ TEST_CASE( "transpose", "" ) {
     REQUIRE( b.m33 == 16 );
 }
 
-TEST_CASE( "operations", "" ) {
+TEST_CASE( "matrix-matrix operations", "" ) {
     Mat4 a = identity<4>();
     Mat4 b = { 1  , 2  , 3  , 4
              , 5  , 6  , 7  , 8
@@ -219,4 +219,17 @@ TEST_CASE( "operations", "" ) {
     REQUIRE( bxc.m31 == 1412 );
     REQUIRE( bxc.m32 == 1470 );
     REQUIRE( bxc.m33 == 1528 );
+}
+
+TEST_CASE( "matrix-vector operations", "" ) {
+    Mat<2,2> a = { 5, 6, 7, 8 };
+    Vec<2>   b = { 1, 2  };
+
+    Vec<2> axb = a * b;
+    REQUIRE( axb[0] == 17 );
+    REQUIRE( axb[1] == 23 );
+
+    Vec<2> bxa = b * a;
+    REQUIRE( bxa[0] == 19 );
+    REQUIRE( bxa[1] == 22 );
 }
