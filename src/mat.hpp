@@ -55,18 +55,26 @@ template<> struct Mat<4,4> {
 typedef Mat<4,4> Mat4;
 typedef Mat<3,3> Mat3;
 
+template <int rows, int cols>     void            zero( const Mat<rows, cols>& in_out );
 template <int rows, int cols>     Mat<rows, cols> zero();
+template <int rows, int cols>     void            transpose( const Mat<rows,cols>& in, Mat<cols,rows>& out );
+template <int rows, int cols>     Mat<cols, rows> transpose( const Mat<rows,cols>& in );
 
 template <int r1, int c1, int c2> Mat<r1, c2>     operator* ( const Mat<r1, c1>& lhs    , const Mat<c1, c2>& rhs     );
 template <int rows, int cols>     Vec<cols>       operator* ( const Vec<rows>& lhs      , const Mat<rows, cols>& rhs ); // row-vector * matrix
 template <int rows, int cols>     Vec<rows>       operator* ( const Mat<rows, cols>& lhs, const Vec<cols>& rhs       ); // matrix * column-vector
 
 // square matrix functions
-template <int n> void     transpose( const Mat<n,n> in, Mat<n,n>& out );
 template <int n> Mat<n,n> identity ();
 
 Mat4 fromRows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 );
 Mat4 fromCols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 );
+
+template <int rows, int cols> void zero( Mat<rows, cols>& in_out ) {
+    for ( int i = 0; i < rows * cols; i++ ) {
+        in_out[i] = 0;
+    }
+}
 
 template <int rows, int cols> Mat<rows,cols> zero() {
     Mat<rows, cols> out;
@@ -84,13 +92,24 @@ Mat<n,n> identity() {
     return out;
 }
 
-template<int n>
-void transpose( const Mat<n,n> in, Mat<n,n>& out ) {
-    for ( int i = 0; i < n; i++ ) {
-        for ( int j = 0; j < n; j++ ) {
+template<int rows, int cols>
+void transpose( const Mat<rows,cols>& in, Mat<cols,rows>& out ) {
+    for ( int i = 0; i < cols; i++ ) {
+        for ( int j = 0; j < rows; j++ ) {
             out.m[i][j] = in.m[j][i];
         }
     }
+}
+
+template<int rows, int cols>
+Mat<cols, rows> transpose( const Mat<rows,cols>& in ) {
+    Mat<cols, rows> out;
+    for ( int i = 0; i < cols; i++ ) {
+        for ( int j = 0; j < rows; j++ ) {
+            out.m[i][j] = in.m[j][i];
+        }
+    }
+    return out;
 }
 
 template<int r1, int c1, int c2>

@@ -110,7 +110,7 @@ TEST_CASE( "transpose", "" ) {
              , 4, 5, 6
              , 7, 8, 9 };
 
-    transpose( a, a );
+    a = transpose( a );
 
     REQUIRE( a.m00 == 1 );
     REQUIRE( a.m01 == 4 );
@@ -136,7 +136,7 @@ TEST_CASE( "transpose", "" ) {
              ,  9, 10, 11, 12
              , 13, 14, 15, 16 };
 
-    transpose( b, b );
+    b = transpose( b );
 
     REQUIRE( b.m00 == 1  );
     REQUIRE( b.m01 == 5  );
@@ -170,6 +170,19 @@ TEST_CASE( "transpose", "" ) {
     REQUIRE( b.m31 == 8  );
     REQUIRE( b.m32 == 12 );
     REQUIRE( b.m33 == 16 );
+
+    Mat<100,50> c;
+    Mat<50,100> d;
+
+    for ( int i = 0; i < 5000; i++ ) c[i] = random_float();
+
+    transpose( c, d );
+
+    for ( int i = 0; i < 100; i++ ) {
+        for ( int j = 0; j < 50; j++ ) {
+            REQUIRE( c.m[i][j] == d.m[j][i] );
+        }
+    }
 }
 
 TEST_CASE( "matrix-matrix operations", "" ) {
@@ -232,4 +245,16 @@ TEST_CASE( "matrix-vector operations", "" ) {
     Vec<2> bxa = b * a;
     REQUIRE( bxa[0] == 19 );
     REQUIRE( bxa[1] == 22 );
+
+    Mat<3,2> c = { 5, 6, 7, 8, 9, 10 };
+    Vec<3> cxb = c * b;
+    REQUIRE( cxb[0] == 17 );
+    REQUIRE( cxb[1] == 23 );
+    REQUIRE( cxb[2] == 29 );
+
+    Mat<2,3> d = { 5, 6, 7, 8, 9, 10 };
+    Vec<3> bxd = b * d;
+    REQUIRE( bxd[0] == 21 );
+    REQUIRE( bxd[1] == 24 );
+    REQUIRE( bxd[2] == 27 );
 }
