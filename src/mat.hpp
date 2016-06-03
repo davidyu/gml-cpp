@@ -65,6 +65,8 @@ template <int rows, int cols>     Vec<cols>        operator* ( const Vec<rows>& 
 template <int rows, int cols>     Vec<rows>        operator* ( const Mat<rows, cols>& lhs, const Vec<cols>& rhs       ); // matrix * column-vector
 template <int rows, int cols>     Mat<rows, cols>  operator+ ( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
 template <int rows, int cols>     Mat<rows, cols>& operator+=(       Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
+template <int rows, int cols>     Mat<rows, cols>  operator- ( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
+template <int rows, int cols>     Mat<rows, cols>& operator-=(       Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
 
 // square matrix functions
 template <int n> Mat<n,n> identity ();
@@ -168,6 +170,23 @@ template <int rows, int cols>
 Mat<rows, cols>& operator+=( Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
     for ( int i = 0; i < rows * cols; i++ ) {
         lhs[i] += rhs[i];
+    }
+    return lhs;
+}
+
+template <int rows, int cols>
+Mat<rows, cols>  operator- ( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
+    Mat<rows, cols> out;
+    for ( int i = 0; i < rows * cols; i++ ) {
+        out[i] = lhs[i] - rhs[i];
+    }
+    return out;
+}
+
+template <int rows, int cols>
+Mat<rows, cols>& operator-=( Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
+    for ( int i = 0; i < rows * cols; i++ ) {
+        lhs[i] -= rhs[i];
     }
     return lhs;
 }

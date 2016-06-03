@@ -233,23 +233,23 @@ TEST_CASE( "matrix-matrix operations", "" ) {
     REQUIRE( bxc.m32 == 1470 );
     REQUIRE( bxc.m33 == 1528 );
 
-    Mat4 b_plus_c = b + c;
-    REQUIRE( b_plus_c.m00 == 18 );
-    REQUIRE( b_plus_c.m01 == 20 );
-    REQUIRE( b_plus_c.m02 == 22 );
-    REQUIRE( b_plus_c.m03 == 24 );
-    REQUIRE( b_plus_c.m10 == 26 );
-    REQUIRE( b_plus_c.m11 == 28 );
-    REQUIRE( b_plus_c.m12 == 30 );
-    REQUIRE( b_plus_c.m13 == 32 );
-    REQUIRE( b_plus_c.m20 == 34 );
-    REQUIRE( b_plus_c.m21 == 36 );
-    REQUIRE( b_plus_c.m22 == 38 );
-    REQUIRE( b_plus_c.m23 == 40 );
-    REQUIRE( b_plus_c.m30 == 42 );
-    REQUIRE( b_plus_c.m31 == 44 );
-    REQUIRE( b_plus_c.m32 == 46 );
-    REQUIRE( b_plus_c.m33 == 48 );
+    Mat4 c_b = c - b;
+    REQUIRE( c_b.m00 == 16 );
+    REQUIRE( c_b.m01 == 16 );
+    REQUIRE( c_b.m02 == 16 );
+    REQUIRE( c_b.m03 == 16 );
+    REQUIRE( c_b.m10 == 16 );
+    REQUIRE( c_b.m11 == 16 );
+    REQUIRE( c_b.m12 == 16 );
+    REQUIRE( c_b.m13 == 16 );
+    REQUIRE( c_b.m20 == 16 );
+    REQUIRE( c_b.m21 == 16 );
+    REQUIRE( c_b.m22 == 16 );
+    REQUIRE( c_b.m23 == 16 );
+    REQUIRE( c_b.m30 == 16 );
+    REQUIRE( c_b.m31 == 16 );
+    REQUIRE( c_b.m32 == 16 );
+    REQUIRE( c_b.m33 == 16 );
 }
 
 TEST_CASE( "matrix-vector operations", "" ) {
