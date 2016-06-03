@@ -194,6 +194,21 @@ TEST_CASE( "vector in-place modifier operations", "" ) {
 
     REQUIRE( a.x == 1 );
     REQUIRE( a.y == 4 );
+
+    a = b;
+    REQUIRE( a.x == b.x );
+    REQUIRE( a.y == b.y );
+
+    d = e;
+    REQUIRE( d.x == e.x );
+    REQUIRE( d.y == e.y );
+    REQUIRE( d.z == e.z );
+
+    g = h;
+    REQUIRE( g.x == h.x );
+    REQUIRE( g.y == h.y );
+    REQUIRE( g.z == h.z );
+    REQUIRE( g.w == h.w );
 }
 
 TEST_CASE( "vector methods", "" ) {
