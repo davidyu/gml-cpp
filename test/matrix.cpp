@@ -232,6 +232,24 @@ TEST_CASE( "matrix-matrix operations", "" ) {
     REQUIRE( bxc.m31 == 1412 );
     REQUIRE( bxc.m32 == 1470 );
     REQUIRE( bxc.m33 == 1528 );
+
+    Mat4 b_plus_c = b + c;
+    REQUIRE( b_plus_c.m00 == 18 );
+    REQUIRE( b_plus_c.m01 == 20 );
+    REQUIRE( b_plus_c.m02 == 22 );
+    REQUIRE( b_plus_c.m03 == 24 );
+    REQUIRE( b_plus_c.m10 == 26 );
+    REQUIRE( b_plus_c.m11 == 28 );
+    REQUIRE( b_plus_c.m12 == 30 );
+    REQUIRE( b_plus_c.m13 == 32 );
+    REQUIRE( b_plus_c.m20 == 34 );
+    REQUIRE( b_plus_c.m21 == 36 );
+    REQUIRE( b_plus_c.m22 == 38 );
+    REQUIRE( b_plus_c.m23 == 40 );
+    REQUIRE( b_plus_c.m30 == 42 );
+    REQUIRE( b_plus_c.m31 == 44 );
+    REQUIRE( b_plus_c.m32 == 46 );
+    REQUIRE( b_plus_c.m33 == 48 );
 }
 
 TEST_CASE( "matrix-vector operations", "" ) {

@@ -52,17 +52,19 @@ template<> struct Mat<4,4> {
     }
 };
 
-typedef Mat<4,4> Mat4;
 typedef Mat<3,3> Mat3;
+typedef Mat<4,4> Mat4;
 
-template <int rows, int cols>     void            zero( const Mat<rows, cols>& in_out );
-template <int rows, int cols>     Mat<rows, cols> zero();
-template <int rows, int cols>     void            transpose( const Mat<rows,cols>& in, Mat<cols,rows>& out );
-template <int rows, int cols>     Mat<cols, rows> transpose( const Mat<rows,cols>& in );
+template <int rows, int cols>     void             zero( const Mat<rows, cols>& in_out );
+template <int rows, int cols>     Mat<rows, cols>  zero();
+template <int rows, int cols>     void             transpose( const Mat<rows,cols>& in, Mat<cols,rows>& out );
+template <int rows, int cols>     Mat<cols, rows>  transpose( const Mat<rows,cols>& in );
 
-template <int r1, int c1, int c2> Mat<r1, c2>     operator* ( const Mat<r1, c1>& lhs    , const Mat<c1, c2>& rhs     );
-template <int rows, int cols>     Vec<cols>       operator* ( const Vec<rows>& lhs      , const Mat<rows, cols>& rhs ); // row-vector * matrix
-template <int rows, int cols>     Vec<rows>       operator* ( const Mat<rows, cols>& lhs, const Vec<cols>& rhs       ); // matrix * column-vector
+template <int r1, int c1, int c2> Mat<r1, c2>      operator* ( const Mat<r1, c1>& lhs    , const Mat<c1, c2>& rhs     );
+template <int rows, int cols>     Vec<cols>        operator* ( const Vec<rows>& lhs      , const Mat<rows, cols>& rhs ); // row-vector * matrix
+template <int rows, int cols>     Vec<rows>        operator* ( const Mat<rows, cols>& lhs, const Vec<cols>& rhs       ); // matrix * column-vector
+template <int rows, int cols>     Mat<rows, cols>  operator+ ( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
+template <int rows, int cols>     Mat<rows, cols>& operator+=(       Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
 
 // square matrix functions
 template <int n> Mat<n,n> identity ();
@@ -151,4 +153,21 @@ Vec<rows> operator*( const Mat<rows, cols>& lhs, const Vec<cols>& rhs ) {
        out.v[i] = sum;
     }
     return out;
+}
+
+template <int rows, int cols>
+Mat<rows, cols>  operator+ ( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
+    Mat<rows, cols> out;
+    for ( int i = 0; i < rows * cols; i++ ) {
+        out[i] = lhs[i] + rhs[i];
+    }
+    return out;
+}
+
+template <int rows, int cols>
+Mat<rows, cols>& operator+=( Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
+    for ( int i = 0; i < rows * cols; i++ ) {
+        lhs[i] += rhs[i];
+    }
+    return lhs;
 }
