@@ -20,5 +20,5 @@ call update
     cl @..\vcbuildflags
     @popd
 ) else (
-    g++ -std=c++11 -I./src -I./test -o %DIST%/test.exe ./src/mat.cpp ./test/test.cpp ./test/vector.cpp ./test/matrix.cpp
+    g++ -std=c++11 -I./src -I./test -o %DIST%/test.exe ./test/test.cpp ./test/mat.cpp ./test/vec.cpp
 )

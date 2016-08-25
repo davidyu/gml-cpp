@@ -1,3 +1,23 @@
+/***************************************************************
+ * 
+ * LIGHTWEIGHT MULTIDIMENSIONAL MATRICES
+ *
+ * Usage example:
+ *
+ *  Mat4 id = { 1, 0, 0, 0
+ *            , 0, 1, 0, 0
+ *            , 0, 0, 1, 0
+ *            , 0, 0, 0, 1 };
+ *
+ *  id *= 1;
+ *
+ *  Vec4 pos = { 0, 0, 0, 1 };
+ *  pos = id * pos;
+ *
+ *  id = transpose( id );
+ *
+ **************************************************************/
+
 #pragma once
 
 #include "vec.hpp"
@@ -73,8 +93,47 @@ template <int rows, int cols>     Mat<rows, cols>& operator-=(       Mat<rows, c
 // square matrix functions
 template <int n> Mat<n,n> identity ();
 
-Mat4 fromRows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 );
-Mat4 fromCols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 );
+Mat4 fromRows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 ) {
+    Mat4 out;
+    for ( int i = 0; i < 4; i++ ) {
+        out.m[0][i] = r0.v[i];
+    }
+
+    for ( int i = 0; i < 4; i++ ) {
+        out.m[1][i] = r1.v[i];
+    }
+
+    for ( int i = 0; i < 4; i++ ) {
+        out.m[2][i] = r2.v[i];
+    }
+
+    for ( int i = 0; i < 4; i++ ) {
+        out.m[3][i] = r3.v[i];
+    }
+
+    return out;
+}
+
+Mat4 fromCols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 ) {
+    Mat4 out;
+    for ( int i = 0; i < 4; i++ ) {
+        out.m[i][0] = c0.v[i];
+    }
+
+    for ( int i = 0; i < 4; i++ ) {
+        out.m[i][1] = c1.v[i];
+    }
+
+    for ( int i = 0; i < 4; i++ ) {
+        out.m[i][2] = c2.v[i];
+    }
+
+    for ( int i = 0; i < 4; i++ ) {
+        out.m[i][3] = c3.v[i];
+    }
+
+    return out;
+}
 
 template <int rows, int cols> void zero( Mat<rows, cols>& in_out ) {
     for ( int i = 0; i < rows * cols; i++ ) {

@@ -1,3 +1,25 @@
+/***************************************************************
+ * 
+ * LIGHTWEIGHT MULTIDIMENSIONAL VECTORS
+ *
+ * Usage example:
+ *
+ *  Vec4 pos = { 0, 0, 0, 1 };
+ *
+ *  pos += { 1, 1, 1, 0 };
+ *  pos /= { 1, 1, 1, 1 };
+ *  pos *= { 1, 1, 1, 1 };
+ *
+ *  float x = pos.x;
+ *  float y = pos.y;
+ *  float z = pos.z;
+ *  float w = pos.w;
+ *
+ *  pos.w = 0;
+ *  Vec4 normalized = normalize( pos );
+ *
+ **************************************************************/
+
 #pragma once
 
 #define _USE_MATH_DEFINES // needed for M_PI to exist on Windows
