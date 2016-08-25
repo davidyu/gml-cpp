@@ -75,6 +75,11 @@ template<> struct Mat<4,4> {
 typedef Mat<3,3> Mat3;
 typedef Mat<4,4> Mat4;
 
+Mat3                                               construct_mat3_from_rows( Vec3 r0, Vec3 r1, Vec3 r2 );
+Mat3                                               construct_mat3_from_cols( Vec3 c0, Vec3 c1, Vec3 c2 );
+Mat4                                               construct_mat4_from_rows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 );
+Mat4                                               construct_mat4_from_cols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 );
+
 template <int rows, int cols>     void             zero( const Mat<rows, cols>& in_out );
 template <int rows, int cols>     Mat<rows, cols>  zero();
 template <int rows, int cols>     void             transpose( const Mat<rows,cols>& in, Mat<cols,rows>& out );
@@ -93,7 +98,41 @@ template <int rows, int cols>     Mat<rows, cols>& operator-=(       Mat<rows, c
 // square matrix functions
 template <int n> Mat<n,n> identity ();
 
-Mat4 fromRows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 ) {
+Mat3 construct_mat3_from_rows( Vec3 r0, Vec3 r1, Vec3 r2 ) {
+    Mat3 out;
+    for ( int i = 0; i < 3; i++ ) {
+        out.m[0][i] = r0.v[i];
+    }
+
+    for ( int i = 0; i < 3; i++ ) {
+        out.m[1][i] = r1.v[i];
+    }
+
+    for ( int i = 0; i < 3; i++ ) {
+        out.m[2][i] = r2.v[i];
+    }
+
+    return out;
+}
+
+Mat3 construct_mat3_from_cols( Vec3 c0, Vec3 c1, Vec3 c2 ) {
+    Mat3 out;
+    for ( int i = 0; i < 3; i++ ) {
+        out.m[i][0] = c0.v[i];
+    }
+
+    for ( int i = 0; i < 3; i++ ) {
+        out.m[i][1] = c1.v[i];
+    }
+
+    for ( int i = 0; i < 3; i++ ) {
+        out.m[i][2] = c2.v[i];
+    }
+
+    return out;
+}
+
+Mat4 construct_mat4_from_rows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 ) {
     Mat4 out;
     for ( int i = 0; i < 4; i++ ) {
         out.m[0][i] = r0.v[i];
@@ -114,7 +153,7 @@ Mat4 fromRows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 ) {
     return out;
 }
 
-Mat4 fromCols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 ) {
+Mat4 construct_mat4_from_cols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 ) {
     Mat4 out;
     for ( int i = 0; i < 4; i++ ) {
         out.m[i][0] = c0.v[i];

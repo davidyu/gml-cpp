@@ -1,11 +1,13 @@
 #pragma once
 
 #define _CRT_RAND_S // needed for rand_s() to be defined
+
 #include <stdlib.h>
 #include <limits.h>
 
 // returns a random float between 0 and 1.
 inline float random_float() {
+
 #if defined ( _WIN64 )
     unsigned int n;
     rand_s( &n );
@@ -13,4 +15,5 @@ inline float random_float() {
 #else
     return drand48();
 #endif
+
 }
