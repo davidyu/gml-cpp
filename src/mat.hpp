@@ -219,7 +219,7 @@ template<int rows, int cols>
 Mat<rows, cols> operator*( const Mat<rows, cols>& lhs, const float rhs ) {
     Mat<rows, cols> out;
     for ( int i = 0; i < rows * cols; i++ ) {
-       out.v[i] = sum;
+       out.flat[i] = lhs.flat[i] * rhs;
     }
     return out;
 }
@@ -228,7 +228,7 @@ template <int rows, int cols>
 Mat<rows, cols>  operator+ ( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
     Mat<rows, cols> out;
     for ( int i = 0; i < rows * cols; i++ ) {
-        out.flat[i] = lhs.flat[i] * rhs;
+        out.flat[i] = lhs.flat[i] + rhs.flat[i];
     }
     return out;
 }
