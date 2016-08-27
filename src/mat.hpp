@@ -80,6 +80,8 @@ Mat3                                               construct_mat3_from_cols( Vec
 Mat4                                               construct_mat4_from_rows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 );
 Mat4                                               construct_mat4_from_cols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 );
 
+float                                              determinant( const Mat4& m );
+
 template <int rows, int cols>     void             zero( const Mat<rows, cols>& in_out );
 template <int rows, int cols>     Mat<rows, cols>  zero();
 template <int rows, int cols>     void             transpose( const Mat<rows,cols>& in, Mat<cols,rows>& out );
@@ -130,6 +132,166 @@ Mat4 construct_mat4_from_cols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 ) {
     out.m[2][0] = c0.v[2]; out.m[2][1] = c1.v[2]; out.m[2][2] = c2.v[2]; out.m[2][3] = c3.v[2];
     out.m[3][0] = c0.v[3]; out.m[3][1] = c1.v[3]; out.m[3][2] = c2.v[3]; out.m[3][3] = c3.v[3];
     return out;
+}
+
+Mat4 invert( const Mat4& m ) {
+    float a00 = m.m03 * m.m11 - m.m01 * m.m13;
+    float a01 = m.m20 * m.m32 - m.m22 * m.m30;
+    float a02 = m.m00 * m.m13 - m.m03 * m.m10;
+    float a03 = m.m21 * m.m32 - m.m22 * m.m31;
+    float a04 = m.m02 * m.m10 - m.m00 * m.m12;
+    float a05 = m.m21 * m.m33 - m.m23 * m.m31;
+    float a06 = m.m00 * m.m11 - m.m01 * m.m10;
+    float a07 = m.m22 * m.m33 - m.m23 * m.m32;
+    float a08 = m.m02 * m.m11 - m.m01 * m.m12;
+    float a09 = m.m23 * m.m30 - m.m20 * m.m33;
+    float a10 = m.m03 * m.m12 - m.m02 * m.m13;
+    float a11 = m.m21 * m.m30 - m.m20 * m.m31;
+
+    float det = a00 * a01 + a02 * a03 + a04 * a05 + a06 * a07 + a08 * a09 + a10 * a11;
+    if ( det == 0 ) return identity<4>(); // fail
+    float f = 1 / det;
+
+   /* given the expanded form of the 4x4 inverse:
+    *
+    *    ( f * ( -m13 * m22 * m31 + m12 * m23 * m31 + m13 * m21 * m32 - m11 * m23 * m32 - m12 * m21 * m33 + m11 * m22 * m33 )
+    *    , f * (  m03 * m22 * m31 - m02 * m23 * m31 - m03 * m21 * m32 + m01 * m23 * m32 + m02 * m21 * m33 - m01 * m22 * m33 )
+    *    , f * ( -m03 * m12 * m31 + m02 * m13 * m31 + m03 * m11 * m32 - m01 * m13 * m32 - m02 * m11 * m33 + m01 * m12 * m33 )
+    *    , f * (  m03 * m12 * m21 - m02 * m13 * m21 - m03 * m11 * m22 + m01 * m13 * m22 + m02 * m11 * m23 - m01 * m12 * m23 )
+    *
+    *    , f * (  m13 * m22 * m30 - m12 * m23 * m30 - m13 * m20 * m32 + m10 * m23 * m32 + m12 * m20 * m33 - m10 * m22 * m33 )
+    *    , f * ( -m03 * m22 * m30 + m02 * m23 * m30 + m03 * m20 * m32 - m00 * m23 * m32 - m02 * m20 * m33 + m00 * m22 * m33 )
+    *    , f * (  m03 * m12 * m30 - m02 * m13 * m30 - m03 * m10 * m32 + m00 * m13 * m32 + m02 * m10 * m33 - m00 * m12 * m33 )
+    *    , f * ( -m03 * m12 * m20 + m02 * m13 * m20 + m03 * m10 * m22 - m00 * m13 * m22 - m02 * m10 * m23 + m00 * m12 * m23 )
+    *
+    *    , f * ( -m13 * m21 * m30 + m11 * m23 * m30 + m13 * m20 * m31 - m10 * m23 * m31 - m11 * m20 * m33 + m10 * m21 * m33 )
+    *    , f * (  m03 * m21 * m30 - m01 * m23 * m30 - m03 * m20 * m31 + m00 * m23 * m31 + m01 * m20 * m33 - m00 * m21 * m33 )
+    *    , f * ( -m03 * m11 * m30 + m01 * m13 * m30 + m03 * m10 * m31 - m00 * m13 * m31 - m01 * m10 * m33 + m00 * m11 * m33 )
+    *    , f * (  m03 * m11 * m20 - m01 * m13 * m20 - m03 * m10 * m21 + m00 * m13 * m21 + m01 * m10 * m23 - m00 * m11 * m23 )
+    *
+    *    , f * (  m12 * m21 * m30 - m11 * m22 * m30 - m12 * m20 * m31 + m10 * m22 * m31 + m11 * m20 * m32 - m10 * m21 * m32 )
+    *    , f * ( -m02 * m21 * m30 + m01 * m22 * m30 + m02 * m20 * m31 - m00 * m22 * m31 - m01 * m20 * m32 + m00 * m21 * m32 )
+    *    , f * (  m02 * m11 * m30 - m01 * m12 * m30 - m02 * m10 * m31 + m00 * m12 * m31 + m01 * m10 * m32 - m00 * m11 * m32 )
+    *    , f * ( -m02 * m11 * m20 + m01 * m12 * m20 + m02 * m10 * m21 - m00 * m12 * m21 - m01 * m10 * m22 + m00 * m11 * m22 ) )
+    *
+    * rearrange to match terms a00-a11 from determinant computation:
+    *
+    *    ( f * (  m13 * m21 * m32 - m13 * m22 * m31 - m12 * m21 * m33 + m12 * m23 * m31 + m11 * m22 * m33 - m11 * m23 * m32 )
+    *    , f * ( -m03 * m21 * m32 + m03 * m22 * m31 + m02 * m21 * m33 - m02 * m23 * m31 - m01 * m22 * m33 + m01 * m23 * m32 )
+    *    , f * ( -m31 * m03 * m12 + m31 * m02 * m13 + m32 * m03 * m11 - m32 * m01 * m13 - m33 * m02 * m11 + m33 * m01 * m12 )
+    *    , f * (  m21 * m03 * m12 - m21 * m02 * m13 - m22 * m03 * m11 + m22 * m01 * m13 + m23 * m02 * m11 - m23 * m01 * m12 )
+    *
+    *    , f * ( -m13 * m20 * m32 + m13 * m22 * m30 - m12 * m23 * m30 + m12 * m20 * m33 + m10 * m23 * m32 - m10 * m22 * m33 )
+    *    , f * (  m03 * m20 * m32 - m03 * m22 * m30 + m02 * m23 * m30 - m02 * m20 * m33 - m00 * m23 * m32 + m00 * m22 * m33 )
+    *    , f * (  m30 * m03 * m12 - m30 * m02 * m13 + m32 * m00 * m13 - m32 * m03 * m10 + m33 * m02 * m10 - m33 * m00 * m12 )
+    *    , f * ( -m20 * m03 * m12 + m20 * m02 * m13 - m22 * m00 * m13 + m22 * m03 * m10 - m23 * m02 * m10 + m23 * m00 * m12 )
+    *
+    *    , f * ( -m13 * m21 * m30 + m13 * m20 * m31 + m11 * m23 * m30 - m11 * m20 * m33 + m10 * m21 * m33 - m10 * m23 * m31 )
+    *    , f * (  m03 * m21 * m30 - m03 * m20 * m31 - m01 * m23 * m30 + m01 * m20 * m33 - m00 * m21 * m33 + m00 * m23 * m31 )
+    *    , f * ( -m30 * m03 * m11 + m30 * m01 * m13 - m31 * m00 * m13 + m31 * m03 * m10 + m33 * m00 * m11 - m33 * m01 * m10 )
+    *    , f * (  m20 * m03 * m11 - m20 * m01 * m13 + m21 * m00 * m13 - m21 * m03 * m10 - m23 * m00 * m11 + m23 * m01 * m10 )
+    *
+    *    , f * (  m12 * m21 * m30 - m12 * m20 * m31 + m11 * m20 * m32 - m11 * m22 * m30 - m10 * m21 * m32 + m10 * m22 * m31 )
+    *    , f * ( -m02 * m21 * m30 + m02 * m20 * m31 - m01 * m20 * m32 + m01 * m22 * m30 + m00 * m21 * m32 - m00 * m22 * m31 )
+    *    , f * (  m30 * m02 * m11 - m30 * m01 * m12 - m31 * m02 * m10 + m31 * m00 * m12 - m32 * m00 * m11 + m32 * m01 * m10 )
+    *    , f * ( -m20 * m02 * m11 + m20 * m01 * m12 + m21 * m02 * m10 - m21 * m00 * m12 + m22 * m00 * m11 - m22 * m01 * m10 ) );
+    *
+    * then factor:
+    *
+    *    ( f * (  m13 * ( m21 * m32 - m22 * m31 ) - m12 * ( m21 * m33 - m23 * m31 ) + m11 * ( m22 * m33 - m23 * m32 ) )
+    *    , f * ( -m03 * ( m21 * m32 - m22 * m31 ) + m02 * ( m21 * m33 - m23 * m31 ) - m01 * ( m22 * m33 - m23 * m32 ) )
+    *    , f * ( -m31 * ( m03 * m12 - m02 * m13 ) + m32 * ( m03 * m11 - m01 * m13 ) - m33 * ( m02 * m11 - m01 * m12 ) )
+    *    , f * (  m21 * ( m03 * m12 - m02 * m13 ) - m22 * ( m03 * m11 - m01 * m13 ) + m23 * ( m02 * m11 - m01 * m12 ) )
+    *
+    *    , f * ( -m13 * ( m20 * m32 - m22 * m30 ) - m12 * ( m23 * m30 - m20 * m33 ) + m10 * ( m23 * m32 - m22 * m33 ) )
+    *    , f * (  m03 * ( m20 * m32 - m22 * m30 ) + m02 * ( m23 * m30 - m20 * m33 ) - m00 * ( m23 * m32 - m22 * m33 ) )
+    *    , f * (  m30 * ( m03 * m12 - m02 * m13 ) + m32 * ( m00 * m13 - m03 * m10 ) + m33 * ( m02 * m10 - m00 * m12 ) )
+    *    , f * ( -m20 * ( m03 * m12 - m02 * m13 ) - m22 * ( m00 * m13 - m03 * m10 ) - m23 * ( m02 * m10 - m00 * m12 ) )
+    *
+    *    , f * ( -m13 * ( m21 * m30 - m20 * m31 ) + m11 * ( m23 * m30 - m20 * m33 ) + m10 * ( m21 * m33 - m23 * m31 ) )
+    *    , f * (  m03 * ( m21 * m30 - m20 * m31 ) - m01 * ( m23 * m30 - m20 * m33 ) - m00 * ( m21 * m33 - m23 * m31 ) )
+    *    , f * ( -m30 * ( m03 * m11 - m01 * m13 ) - m31 * ( m00 * m13 - m03 * m10 ) + m33 * ( m00 * m11 - m01 * m10 ) )
+    *    , f * (  m20 * ( m03 * m11 - m01 * m13 ) + m21 * ( m00 * m13 - m03 * m10 ) - m23 * ( m00 * m11 - m01 * m10 ) )
+    *
+    *    , f * (  m12 * ( m21 * m30 - m20 * m31 ) + m11 * ( m20 * m32 - m22 * m30 ) - m10 * ( m21 * m32 - m22 * m31 ) )
+    *    , f * ( -m02 * ( m21 * m30 - m20 * m31 ) - m01 * ( m20 * m32 - m22 * m30 ) + m00 * ( m21 * m32 - m22 * m31 ) )
+    *    , f * (  m30 * ( m02 * m11 - m01 * m12 ) - m31 * ( m02 * m10 - m00 * m12 ) - m32 * ( m00 * m11 - m01 * m10 ) )
+    *    , f * ( -m20 * ( m02 * m11 - m01 * m12 ) + m21 * ( m02 * m10 - m00 * m12 ) + m22 * ( m00 * m11 - m01 * m10 ) ) );
+    *
+    * and finally, substitute terms to arrive at the result:
+    */
+
+    return { f * (  m.m13 * a03 - m.m12 * a05 + m.m11 * a07 )
+           , f * ( -m.m03 * a03 + m.m02 * a05 - m.m01 * a07 )
+           , f * ( -m.m31 * a10 + m.m32 * a00 - m.m33 * a08 )
+           , f * (  m.m21 * a10 - m.m22 * a00 + m.m23 * a08 )
+
+           , f * ( -m.m13 * a01 - m.m12 * a09 - m.m10 * a07 )
+           , f * (  m.m03 * a01 + m.m02 * a09 + m.m00 * a07 )
+           , f * (  m.m30 * a10 + m.m32 * a02 + m.m33 * a04 )
+           , f * ( -m.m20 * a10 - m.m22 * a02 - m.m23 * a04 )
+
+           , f * ( -m.m13 * a11 + m.m11 * a09 + m.m10 * a05 )
+           , f * (  m.m03 * a11 - m.m01 * a09 - m.m00 * a05 )
+           , f * ( -m.m30 * a00 - m.m31 * a02 + m.m33 * a06 )
+           , f * (  m.m20 * a00 + m.m21 * a02 - m.m23 * a06 )
+
+           , f * (  m.m12 * a11 + m.m11 * a01 - m.m10 * a03 )
+           , f * ( -m.m02 * a11 - m.m01 * a01 + m.m00 * a03 )
+           , f * (  m.m30 * a08 - m.m31 * a04 - m.m32 * a06 )
+           , f * ( -m.m20 * a08 + m.m21 * a04 + m.m22 * a06 ) };
+}
+
+float determinant( const Mat4& m ) {
+
+   /* to derive: 
+    * expand the Leibniz formula (or Sarrus's rule) to arrive at the following closed form:
+    *
+    *     m03 * m12 * m21 * m30 - m02 * m13 * m21 * m30 - m03 * m11 * m22 * m30 + m01 * m13 * m22 * m30 +
+    *     m02 * m11 * m23 * m30 - m01 * m12 * m23 * m30 - m03 * m12 * m20 * m31 + m02 * m13 * m20 * m31 +
+    *     m03 * m10 * m22 * m31 - m00 * m13 * m22 * m31 - m02 * m10 * m23 * m31 + m00 * m12 * m23 * m31 +
+    *     m03 * m11 * m20 * m32 - m01 * m13 * m20 * m32 - m03 * m10 * m21 * m32 + m00 * m13 * m21 * m32 +
+    *     m01 * m10 * m23 * m32 - m00 * m11 * m23 * m32 - m02 * m11 * m20 * m33 + m01 * m12 * m20 * m33 +
+    *     m02 * m10 * m21 * m33 - m00 * m12 * m21 * m33 - m01 * m10 * m22 * m33 + m00 * m11 * m22 * m33;
+    *
+    * then factor out common pairs:
+    *
+    *      m03 * m11 * ( m20 * m32 - m22 * m30 )
+    *      m01 * m13 * ( m22 * m30 - m20 * m32 )
+    *      m00 * m13 * ( m21 * m32 - m22 * m31 )
+    *      m03 * m10 * ( m22 * m31 - m21 * m32 )
+    *      m02 * m10 * ( m21 * m33 - m23 * m31 )
+    *      m00 * m12 * ( m23 * m31 - m21 * m33 )
+    *      m00 * m11 * ( m22 * m33 - m23 * m32 )
+    *      m02 * m11 * ( m23 * m30 - m20 * m33 )
+    *      m01 * m12 * ( m20 * m33 - m23 * m30 )
+    *      m03 * m12 * ( m21 * m30 - m20 * m31 )
+    *      m02 * m13 * ( m20 * m31 - m21 * m30 )
+    *      m01 * m10 * ( m23 * m32 - m22 * m33 )
+    *
+    * one more time, and voila:
+    *
+    *     ( m03 * m11 - m01 * m13 ) * ( m20 * m32 - m22 * m30 )
+    *     ( m00 * m13 - m03 * m10 ) * ( m21 * m32 - m22 * m31 )
+    *     ( m02 * m10 - m00 * m12 ) * ( m21 * m33 - m23 * m31 )
+    *     ( m00 * m11 - m01 * m10 ) * ( m22 * m33 - m23 * m32 )
+    *     ( m02 * m11 - m01 * m12 ) * ( m23 * m30 - m20 * m33 )
+    *     ( m03 * m12 - m02 * m13 ) * ( m21 * m30 - m20 * m31 )
+    */
+
+    float a00 = m.m03 * m.m11 - m.m01 * m.m13;
+    float a01 = m.m20 * m.m32 - m.m22 * m.m30;
+    float a02 = m.m00 * m.m13 - m.m03 * m.m10;
+    float a03 = m.m21 * m.m32 - m.m22 * m.m31;
+    float a04 = m.m02 * m.m10 - m.m00 * m.m12;
+    float a05 = m.m21 * m.m33 - m.m23 * m.m31;
+    float a06 = m.m00 * m.m11 - m.m01 * m.m10;
+    float a07 = m.m22 * m.m33 - m.m23 * m.m32;
+    float a08 = m.m02 * m.m11 - m.m01 * m.m12;
+    float a09 = m.m23 * m.m30 - m.m20 * m.m33;
+    float a10 = m.m03 * m.m12 - m.m02 * m.m13;
+    float a11 = m.m21 * m.m30 - m.m20 * m.m31;
+    return a00 * a01 + a02 * a03 + a04 * a05 + a06 * a07 + a08 * a09 + a10 * a11;
 }
 
 template <int rows, int cols> void zero( Mat<rows, cols>& in_out ) {
