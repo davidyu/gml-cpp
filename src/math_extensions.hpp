@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <limits.h>
 
+// custom macro definitions
+const float ERROR_EPSILON = 1e-4;
+
 // returns a random float between 0 and 1.
 inline float random_float() {
 

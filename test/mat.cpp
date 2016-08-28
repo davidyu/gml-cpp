@@ -276,3 +276,21 @@ TEST_CASE( "matrix-vector operations", "" ) {
     REQUIRE( bxd[1] == 24 );
     REQUIRE( bxd[2] == 27 );
 }
+
+TEST_CASE( "mat4 determinants", "" ) {
+    Mat4 m = { 1, 5, 9,13
+             , 2, 6,10,14
+             , 3, 7,11,15
+             , 4, 8,12,16 };
+
+    REQUIRE( determinant( m ) == 0 );
+}
+
+TEST_CASE( "mat4 inverse", "" ) {
+    Mat4 m = { 0, 2, 3, 4
+             , 5, 0, 7, 8
+             , 9,10, 0,12
+             ,13,14,15, 0 };
+
+    REQUIRE( m * invert( m ) == identity<4>() );
+}
