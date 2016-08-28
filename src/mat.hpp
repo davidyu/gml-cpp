@@ -113,8 +113,8 @@ template <int rows, int cols>     Mat<rows, cols>  operator+ ( const Mat<rows, c
 template <int rows, int cols>     Mat<rows, cols>& operator+=(       Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
 template <int rows, int cols>     Mat<rows, cols>  operator- ( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
 template <int rows, int cols>     Mat<rows, cols>& operator-=(       Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
-template <int rows, int cols>     bool             operator==(       Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
-template <int rows, int cols>     bool             operator!=(       Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
+template <int rows, int cols>     bool             operator==( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
+template <int rows, int cols>     bool             operator!=( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
 
 // square matrix functions
 template <int n> Mat<n,n> identity ();
@@ -497,17 +497,17 @@ Mat<rows, cols>& operator-=( Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) 
 }
 
 template <int rows, int cols>
-bool operator==( Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
+bool operator==( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
     for ( int i = 0; i < rows * cols; i++ ) {
-        if ( abs( lhs[i] - rhs[i] ) > ERROR_EPSILON ) return false;
+        if ( fabs( lhs[i] - rhs[i] ) > ERROR_EPSILON ) return false;
     }
     return true;
 }
 
 template <int rows, int cols>
-bool operator!=( Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
+bool operator!=( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs ) {
     for ( int i = 0; i < rows * cols; i++ ) {
-        if ( abs( lhs[i] - rhs[i] ) > ERROR_EPSILON ) return true;
+        if ( fabs( lhs[i] - rhs[i] ) > ERROR_EPSILON ) return true;
     }
     return false;
 }
