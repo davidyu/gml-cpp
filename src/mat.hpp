@@ -83,6 +83,22 @@ Mat4                                               construct_mat4_from_cols( Vec
 float                                              determinant( const Mat4& m );
 Mat4                                               invert     ( const Mat4& m );
 
+Vec3                                               get_row0( const Mat3& m );
+Vec3                                               get_row1( const Mat3& m );
+Vec3                                               get_row2( const Mat3& m );
+Vec3                                               get_col0( const Mat3& m );
+Vec3                                               get_col1( const Mat3& m );
+Vec3                                               get_col2( const Mat3& m );
+
+Vec4                                               get_row0( const Mat4& m );
+Vec4                                               get_row1( const Mat4& m );
+Vec4                                               get_row2( const Mat4& m );
+Vec4                                               get_row3( const Mat4& m );
+Vec4                                               get_col0( const Mat4& m );
+Vec4                                               get_col1( const Mat4& m );
+Vec4                                               get_col2( const Mat4& m );
+Vec4                                               get_col3( const Mat4& m );
+
 template <int rows, int cols>     void             zero( const Mat<rows, cols>& in_out );
 template <int rows, int cols>     Mat<rows, cols>  zero();
 template <int rows, int cols>     void             transpose( const Mat<rows,cols>& in, Mat<cols,rows>& out );
@@ -127,6 +143,62 @@ Mat4 construct_mat4_from_cols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 ) {
            , c0.v[1], c1.v[1], c2.v[1], c3.v[1]
            , c0.v[2], c1.v[2], c2.v[2], c3.v[2]
            , c0.v[3], c1.v[3], c2.v[3], c3.v[3] };
+}
+
+Vec3 get_row0( const Mat3& m ) {
+    return { m.m00, m.m01, m.m02 };
+}
+
+Vec3 get_row1( const Mat3& m ) {
+    return { m.m10, m.m11, m.m12 };
+}
+
+Vec3 get_row2( const Mat3& m ) {
+    return { m.m20, m.m21, m.m22 };
+}
+
+Vec3 get_col0( const Mat3& m ) {
+    return { m.m00, m.m10, m.m20 };
+}
+
+Vec3 get_col1( const Mat3& m ) {
+    return { m.m01, m.m11, m.m21 };
+}
+
+Vec3 get_col2( const Mat3& m ) {
+    return { m.m02, m.m12, m.m22 };
+}
+
+Vec4 get_row0( const Mat4& m ) {
+    return { m.m00, m.m01, m.m02, m.m03 };
+}
+
+Vec4 get_row1( const Mat4& m ) {
+    return { m.m10, m.m11, m.m12, m.m13 };
+}
+
+Vec4 get_row2( const Mat4& m ) {
+    return { m.m20, m.m21, m.m22, m.m23 };
+}
+
+Vec4 get_row3( const Mat4& m ) {
+    return { m.m30, m.m31, m.m32, m.m33 };
+}
+
+Vec4 get_col0( const Mat4& m ) {
+    return { m.m00, m.m10, m.m20, m.m30 };
+}
+
+Vec4 get_col1( const Mat4& m ) {
+    return { m.m01, m.m11, m.m21, m.m31 };
+}
+
+Vec4 get_col2( const Mat4& m ) {
+    return { m.m02, m.m12, m.m22, m.m32 };
+}
+
+Vec4 get_col3( const Mat4& m ) {
+    return { m.m03, m.m13, m.m23, m.m33 };
 }
 
 Mat4 invert( const Mat4& m ) {
