@@ -1,6 +1,6 @@
 /***************************************************************
  * 
- * LIGHTWEIGHT MULTIDIMENSIONAL MATRICES
+ * TEMPLATIZED MULTIDIMENSIONAL MATRICES
  *
  * Usage example:
  *
@@ -81,6 +81,7 @@ Mat4                                               construct_mat4_from_rows( Vec
 Mat4                                               construct_mat4_from_cols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 );
 
 float                                              determinant( const Mat4& m );
+Mat4                                               invert     ( const Mat4& m );
 
 template <int rows, int cols>     void             zero( const Mat<rows, cols>& in_out );
 template <int rows, int cols>     Mat<rows, cols>  zero();
@@ -103,37 +104,29 @@ template <int rows, int cols>     bool             operator!=(       Mat<rows, c
 template <int n> Mat<n,n> identity ();
 
 Mat3 construct_mat3_from_rows( Vec3 r0, Vec3 r1, Vec3 r2 ) {
-    Mat3 out;
-    out.m[0][0] = r0.v[0]; out.m[0][1] = r0.v[1]; out.m[0][2] = r0.v[2];
-    out.m[1][0] = r1.v[0]; out.m[1][1] = r1.v[1]; out.m[1][2] = r1.v[2];
-    out.m[2][0] = r2.v[0]; out.m[2][1] = r2.v[1]; out.m[2][2] = r2.v[2];
-    return out;
+    return { r0.v[0], r0.v[1], r0.v[2]
+           , r1.v[0], r1.v[1], r1.v[2]
+           , r2.v[0], r2.v[1], r2.v[2] };
 }
 
 Mat3 construct_mat3_from_cols( Vec3 c0, Vec3 c1, Vec3 c2 ) {
-    Mat3 out;
-    out.m[0][0] = c0.v[0]; out.m[0][1] = c1.v[0]; out.m[0][2] = c2.v[0];
-    out.m[1][0] = c0.v[1]; out.m[1][1] = c1.v[1]; out.m[1][2] = c2.v[1];
-    out.m[2][0] = c0.v[2]; out.m[2][1] = c1.v[2]; out.m[2][2] = c2.v[2];
-    return out;
+    return { c0.v[0], c1.v[0], c2.v[0]
+           , c0.v[1], c1.v[1], c2.v[1]
+           , c0.v[2], c1.v[2], c2.v[2] };
 }
 
 Mat4 construct_mat4_from_rows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 ) {
-    Mat4 out;
-    out.m[0][0] = r0.v[0]; out.m[0][1] = r0.v[1]; out.m[0][2] = r0.v[2]; out.m[0][3] = r0.v[3];
-    out.m[1][0] = r1.v[0]; out.m[1][1] = r1.v[1]; out.m[1][2] = r1.v[2]; out.m[1][3] = r1.v[3];
-    out.m[2][0] = r2.v[0]; out.m[2][1] = r2.v[1]; out.m[2][2] = r2.v[2]; out.m[2][3] = r2.v[3];
-    out.m[3][0] = r3.v[0]; out.m[3][1] = r3.v[1]; out.m[3][2] = r3.v[2]; out.m[3][3] = r3.v[3];
-    return out;
+    return { r0.v[0], r0.v[1], r0.v[2], r0.v[3]
+           , r1.v[0], r1.v[1], r1.v[2], r1.v[3]
+           , r2.v[0], r2.v[1], r2.v[2], r2.v[3]
+           , r3.v[0], r3.v[1], r3.v[2], r3.v[3] };
 }
 
 Mat4 construct_mat4_from_cols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 ) {
-    Mat4 out;
-    out.m[0][0] = c0.v[0]; out.m[0][1] = c1.v[0]; out.m[0][2] = c2.v[0]; out.m[0][3] = c3.v[0];
-    out.m[1][0] = c0.v[1]; out.m[1][1] = c1.v[1]; out.m[1][2] = c2.v[1]; out.m[1][3] = c3.v[1];
-    out.m[2][0] = c0.v[2]; out.m[2][1] = c1.v[2]; out.m[2][2] = c2.v[2]; out.m[2][3] = c3.v[2];
-    out.m[3][0] = c0.v[3]; out.m[3][1] = c1.v[3]; out.m[3][2] = c2.v[3]; out.m[3][3] = c3.v[3];
-    return out;
+    return { c0.v[0], c1.v[0], c2.v[0], c3.v[0]
+           , c0.v[1], c1.v[1], c2.v[1], c3.v[1]
+           , c0.v[2], c1.v[2], c2.v[2], c3.v[2]
+           , c0.v[3], c1.v[3], c2.v[3], c3.v[3] };
 }
 
 Mat4 invert( const Mat4& m ) {

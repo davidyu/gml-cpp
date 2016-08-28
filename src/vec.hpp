@@ -1,6 +1,6 @@
 /***************************************************************
  * 
- * LIGHTWEIGHT MULTIDIMENSIONAL VECTORS
+ * TEMPLATIZED MULTIDIMENSIONAL VECTORS
  *
  * Usage example:
  *
