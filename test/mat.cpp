@@ -32,6 +32,60 @@ TEST_CASE( "simple matrix constructors", "" ) {
     REQUIRE( d.m[2][2] == 1 );
 }
 
+TEST_CASE( "specialized row/column constructors", "" ) {
+    // Mat3
+    {
+        Vec3 r0 = { 1, 2, 3 };
+        Vec3 r1 = { 4, 5, 6 };
+        Vec3 r2 = { 7, 8, 9 };
+
+        Vec3 c0 = { 1, 4, 7 };
+        Vec3 c1 = { 2, 5, 8 };
+        Vec3 c2 = { 3, 6, 9 };
+
+        Mat3 m1 = construct_mat3_from_rows( r0, r1, r2 );
+        Mat3 m2 = construct_mat3_from_cols( c0, c1, c2 );
+
+        REQUIRE( m1 == m2 );
+
+        REQUIRE( get_row0( m1 ) == r0 );
+        REQUIRE( get_row1( m1 ) == r1 );
+        REQUIRE( get_row2( m1 ) == r2 );
+
+        REQUIRE( get_col0( m2 ) == c0 );
+        REQUIRE( get_col1( m2 ) == c1 );
+        REQUIRE( get_col2( m2 ) == c2 );
+    }
+
+    // Mat4
+    {
+        Vec4 r0 = {  1,  2,  3,  4 };
+        Vec4 r1 = {  5,  6,  7,  8 };
+        Vec4 r2 = {  9, 10, 11, 12 };
+        Vec4 r3 = { 13, 14, 15, 16 };
+
+        Vec4 c0 = {  1,  5,  9, 13 };
+        Vec4 c1 = {  2,  6, 10, 14 };
+        Vec4 c2 = {  3,  7, 11, 15 };
+        Vec4 c3 = {  4,  8, 12, 16 };
+
+        Mat4 m1 = construct_mat4_from_rows( r0, r1, r2, r3 );
+        Mat4 m2 = construct_mat4_from_cols( c0, c1, c2, c3 );
+
+        REQUIRE( m1 == m2 );
+
+        REQUIRE( get_row0( m1 ) == r0 );
+        REQUIRE( get_row1( m1 ) == r1 );
+        REQUIRE( get_row2( m1 ) == r2 );
+        REQUIRE( get_row3( m1 ) == r3 );
+
+        REQUIRE( get_col0( m2 ) == c0 );
+        REQUIRE( get_col1( m2 ) == c1 );
+        REQUIRE( get_col2( m2 ) == c2 );
+        REQUIRE( get_col3( m2 ) == c3 );
+    }
+}
+
 TEST_CASE( "matrix accessors", "" ) {
     Mat<1,1> x = { 5 };
     REQUIRE( x[0] == 5 );
