@@ -132,6 +132,8 @@ template <int n> Vec<n>  operator^          ( const Vec<n> lhs , const Vec<n> rh
 template <int n> Vec<n>& operator^=         ( Vec<n>& lhs      , const Vec<n> rhs );
 template <int n> Vec<n>  operator^          ( const Vec<n> lhs , const float rhs  );
 template <int n> Vec<n>& operator^=         ( Vec<n>& lhs      , const float rhs  );
+template <int n> bool    operator==         ( const Vec<n>& lhs, const Vec<n>& rhs );
+template <int n> bool    operator!=         ( const Vec<n>& lhs, const Vec<n>& rhs );
 
 // vector-specific operations
 template <int n> float   dot                ( const Vec<n> lhs, const Vec<n> rhs );
@@ -296,6 +298,22 @@ Vec<n>& operator^= ( Vec<n>& lhs, const float rhs ) {
         lhs[i] = pow( lhs[i], rhs );
     }
     return lhs;
+}
+
+template <int n>
+bool operator== ( const Vec<n>& lhs, const Vec<n>& rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        if ( fabs( lhs[i] - rhs[i] ) > ERROR_EPSILON ) return false;
+    }
+    return true;
+}
+
+template <int n>
+bool operator!= ( const Vec<n>& lhs, const Vec<n>& rhs ) {
+    for ( int i = 0; i < n; i++ ) {
+        if ( fabs( lhs[i] - rhs[i] ) > ERROR_EPSILON ) return true;
+    }
+    return false;
 }
 
 template <int n>
