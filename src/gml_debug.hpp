@@ -1,8 +1,10 @@
 #pragma once
 
-// include me if you want to debug print vectors using cout
+// simple debug helper methods
+// such as printing to stdout
 
 #include "vec.hpp"
+#include "mat.hpp"
 #include <iostream>
 
 template<int n>
@@ -12,5 +14,16 @@ std::ostream& operator<<( std::ostream& os, const Vec<n>& v ) {
         os << v.v[i] << ", ";
     }
     os << v.v[n-1] << ")";
+    return os;
+}
+
+template<int rows, int cols>
+std::ostream& operator<<( std::ostream& os, const Mat<rows, cols>& m ) {
+    for ( int r = 0; r < rows; r++ ) {
+        for ( int c = 0; c < cols-1; c++ ) {
+            os << m.m[r][c] << ", ";
+        }
+        os << m.m[r][cols-1] << std::endl;
+    }
     return os;
 }
