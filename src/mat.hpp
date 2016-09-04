@@ -80,6 +80,7 @@ Mat3                                               construct_mat3_from_cols( Vec
 Mat4                                               construct_mat4_from_rows( Vec4 r0, Vec4 r1, Vec4 r2, Vec4 r3 );
 Mat4                                               construct_mat4_from_cols( Vec4 c0, Vec4 c1, Vec4 c2, Vec4 c3 );
 
+float                                              determinant( const Mat3& m );
 float                                              determinant( const Mat4& m );
 Mat4                                               invert     ( const Mat4& m );
 
@@ -115,6 +116,10 @@ template <int rows, int cols>     Mat<rows, cols>  operator- ( const Mat<rows, c
 template <int rows, int cols>     Mat<rows, cols>& operator-=(       Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
 template <int rows, int cols>     bool             operator==( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
 template <int rows, int cols>     bool             operator!=( const Mat<rows, cols>& lhs, const Mat<rows, cols>& rhs );
+
+// scale
+// rotate
+// translate
 
 // square matrix functions
 template <int n> Mat<n,n> identity ();
@@ -307,6 +312,16 @@ Mat4 invert( const Mat4& m ) {
            , f * ( -m.m02 * a11 - m.m01 * a01 + m.m00 * a03 )
            , f * (  m.m30 * a08 - m.m31 * a04 - m.m32 * a06 )
            , f * ( -m.m20 * a08 + m.m21 * a04 + m.m22 * a06 ) };
+}
+
+float determinant( const Mat3& m ) {
+
+   /* use Sarrus's rule and factor out common terms to arrive at:
+    *
+    * m00 * ( m11 * m22 - m12 * m21 ) - m01 * ( m10 * m22 - m12 * m20 ) + m02 * ( m10 * m21 - m11 * m20 )
+    */
+
+    return m.m00 * ( m.m11 * m.m22 - m.m12 * m.m21 ) - m.m01 * ( m.m10 * m.m22 - m.m12 * m.m20 ) + m.m02 * ( m.m10 * m.m21 - m.m11 * m.m20 );
 }
 
 float determinant( const Mat4& m ) {
