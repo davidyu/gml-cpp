@@ -83,6 +83,7 @@ Mat4                                               construct_mat4_from_cols( Vec
 float                                              determinant( const Mat3& m );
 float                                              determinant( const Mat4& m );
 Mat4                                               invert     ( const Mat4& m );
+Mat3                                               invert     ( const Mat3& m );
 
 Vec3                                               get_row0( const Mat3& m );
 Vec3                                               get_row1( const Mat3& m );
@@ -206,6 +207,34 @@ Vec4 get_col3( const Mat4& m ) {
     return { m.m03, m.m13, m.m23, m.m33 };
 }
 
+Mat3 invert( const Mat3& m ) {
+    float det = m.m00 * ( m.m11 * m.m22 - m.m12 * m.m21 ) - m.m01 * ( m.m10 * m.m22 - m.m12 * m.m20 ) + m.m02 * ( m.m10 * m.m21 - m.m11 * m.m20 );
+    if ( det == 0 ) return identity<3>(); // fail
+    float f = 1 / det;
+
+    return { f * ( m.m11 * m.m22 - m.m12 * m.m21 )
+           , f * ( m.m02 * m.m21 - m.m01 * m.m22 )
+           , f * ( m.m02 * m.m12 - m.m02 * m.m11 )
+           
+           , f * ( m.m12 * m.m20 - m.m10 * m.m22 )
+           , f * ( m.m00 * m.m22 - m.m02 * m.m20 )
+           , f * ( m.m02 * m.m10 - m.m00 * m.m12 )
+
+           , f * ( m.m10 * m.m21 - m.m11 * m.m20 )
+           , f * ( m.m01 * m.m20 - m.m00 * m.m21 )
+           , f * ( m.m00 * m.m11 - m.m01 * m.m10 ) };
+}
+
+float determinant( const Mat3& m ) {
+
+   /* use Sarrus's rule and factor out common terms to arrive at:
+    *
+    * m00 * ( m11 * m22 - m12 * m21 ) - m01 * ( m10 * m22 - m12 * m20 ) + m02 * ( m10 * m21 - m11 * m20 )
+    */
+
+    return m.m00 * ( m.m11 * m.m22 - m.m12 * m.m21 ) - m.m01 * ( m.m10 * m.m22 - m.m12 * m.m20 ) + m.m02 * ( m.m10 * m.m21 - m.m11 * m.m20 );
+}
+
 Mat4 invert( const Mat4& m ) {
     float a00 = m.m03 * m.m11 - m.m01 * m.m13;
     float a01 = m.m20 * m.m32 - m.m22 * m.m30;
@@ -312,16 +341,6 @@ Mat4 invert( const Mat4& m ) {
            , f * ( -m.m02 * a11 - m.m01 * a01 + m.m00 * a03 )
            , f * (  m.m30 * a08 - m.m31 * a04 - m.m32 * a06 )
            , f * ( -m.m20 * a08 + m.m21 * a04 + m.m22 * a06 ) };
-}
-
-float determinant( const Mat3& m ) {
-
-   /* use Sarrus's rule and factor out common terms to arrive at:
-    *
-    * m00 * ( m11 * m22 - m12 * m21 ) - m01 * ( m10 * m22 - m12 * m20 ) + m02 * ( m10 * m21 - m11 * m20 )
-    */
-
-    return m.m00 * ( m.m11 * m.m22 - m.m12 * m.m21 ) - m.m01 * ( m.m10 * m.m22 - m.m12 * m.m20 ) + m.m02 * ( m.m10 * m.m21 - m.m11 * m.m20 );
 }
 
 float determinant( const Mat4& m ) {
