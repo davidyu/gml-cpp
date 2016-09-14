@@ -101,6 +101,8 @@ Vec4                                               get_col1( const Mat4& m );
 Vec4                                               get_col2( const Mat4& m );
 Vec4                                               get_col3( const Mat4& m );
 
+Mat4                                               make_perspective( float fov, float aspectRatio, float near, float far );
+
 template <int rows, int cols>     void             zero( const Mat<rows, cols>& in_out );
 template <int rows, int cols>     Mat<rows, cols>  zero();
 template <int rows, int cols>     void             transpose( const Mat<rows,cols>& in, Mat<cols,rows>& out );
@@ -205,6 +207,20 @@ Vec4 get_col2( const Mat4& m ) {
 
 Vec4 get_col3( const Mat4& m ) {
     return { m.m03, m.m13, m.m23, m.m33 };
+}
+
+Mat4 make_perspective( float fov, float aspectRatio, float near, float far ) {
+    float t = near * tan( fov / 2 );
+    float r = t * aspectRatio;
+    float l = -r;
+    float b = -t;
+    float n = near;
+    float f = far;
+
+    return { ( n * 2 ) / ( r - l ) , 0                     , ( r + l ) / ( r - l )      , 0
+           , 0                     , ( n * 2 ) / ( t - b ) , ( t + b ) / ( t - b )      , 0
+           , 0                     , 0                     , -( f + n ) / ( f - n )     , -( f * n * 2 ) / ( f - n )
+           , 0                     , 0                     , -1                         , 0 };
 }
 
 Mat3 invert( const Mat3& m ) {
