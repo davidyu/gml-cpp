@@ -39,8 +39,16 @@ namespace gml {
     };
 
     struct Plane {
+       // (normal) dot (point on plane) = d
        Vec3 normal;
        float d;
+
+       // p = { A, B, C, D } where Ax + By + Cz + D = 0
+       // so we have normal = { A, B, C } and d = -D
+       Plane( Vec4 p )
+           : normal( normalize( { p.x, p.y, p.z } ) )
+           , d( -p.w )
+       {}
 
        Plane( Vec3 n, float _d )
            : normal( normalize( n ) )
