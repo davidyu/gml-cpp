@@ -46,7 +46,7 @@ namespace gml {
        // p = { A, B, C, D } where Ax + By + Cz + D = 0
        // so we have normal = { A, B, C } and d = -D
        Plane( Vec4 p )
-           : normal( normalize( { p.x, p.y, p.z } ) )
+           : normal( normalize( Vec3( p.x, p.y, p.z ) ) )
            , d( -p.w )
        {}
 
