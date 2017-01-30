@@ -1,5 +1,6 @@
 #pragma once
 
+#include "math_extensions.hpp"
 #include "primitives.hpp"
 
 namespace gml {
@@ -28,9 +29,9 @@ namespace gml {
         t = -b - sqrt( discr );
 
         // r starts inside o
-        if ( t < EPSILON ) {
+        if ( t < ERROR_EPSILON ) {
             t = -b + sqrt( discr );
-            if ( t < EPSILON ) return false;
+            if ( t < ERROR_EPSILON ) return false;
         }
 
         pt = r.at( t );
@@ -48,7 +49,7 @@ namespace gml {
     {
         t = ( pl.d - dot( pl.normal, r.origin ) ) / dot( pl.normal, r.direction );
 
-        if ( t >= EPSILON ) {
+        if ( t >= ERROR_EPSILON ) {
             pt = r.at( t );
             normal = pl.normal;
             return true;
