@@ -7,6 +7,7 @@ compiler:
   - clang
 addons:
   apt:
+    update: true
     sources:
     - ubuntu-toolchain-r-test
     packages:
@@ -14,4 +15,4 @@ addons:
     - g++-4.8
     - clang
 script:
-  - make test
+  - make test      
