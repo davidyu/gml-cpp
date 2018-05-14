@@ -5,7 +5,7 @@ gml (game math library) for C++11. Under heavy development.
 
 ### Design notes
 
-This is a C++11 header-only library. Using this library is fairly simple, as you only need to include the corresponding header file in your code. The vector and matrix classes are templatized, so you can define arbitrarily sized vectors and matrices (though the generated assembly might be gnarly to examine as a result):
+This is a C++11 header-only library. Using this library should be fairly simple, as you only need to include the corresponding header file in your code. The vector and matrix classes are templatized, so you can define arbitrarily sized vectors and matrices (though the generated assembly might be gnarly to examine as a result):
 
 ```
 #include "vec.hpp"
