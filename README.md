@@ -1,5 +1,5 @@
 # gml-cpp
-![](https://travis-ci.org/davidyu/gml-cpp.svg?branch=master)
+[![Build status](https://travis-ci.org/davidyu/gml-cpp.svg?branch=master)](https://travis-ci.org/davidyu/gml-cpp/builds)
 
 gml (game math library) for C++11. Under heavy development.
 
