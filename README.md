@@ -48,6 +48,8 @@ int main() {
 }
 ```
 
+Matrices are stored in row-major order.
+
 Common arithmetic operators (`+, -, *, /, ^, +=, -=, *=, /=, ^=, ==, !=`) are overloaded:
 
 ```
