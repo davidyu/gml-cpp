@@ -61,7 +61,7 @@ int main() {
   
   Mat4 m = identity<4>();
   
-  Vec4 result = pos * v4; // -> { 0, 0, 0, 1 }
+  Vec4 result = m * pos; // -> { 0, 0, 0, 1 }
   
   m.tx = 1;
   m.ty = 2;
