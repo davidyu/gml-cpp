@@ -18,7 +18,6 @@ int main() {
   Mat<2,3> m23 = { 11, 12, 13, 21, 22, 23 }; // produces a 2x3 matrix (2 rows, 3 columns)
   return 0;
 }
-
 ```
 
 Template specializations and aliases are provided for common vector and matrix sizes in games, such as `Vec2`, `Vec3`, `Vec4`, `Mat3` and `Mat4`:
