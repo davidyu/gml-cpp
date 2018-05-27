@@ -3,6 +3,8 @@
 
 static const float EPSILON = 1e-6;
 
+using namespace gml;
+
 TEST_CASE( "simple matrix constructors", "" ) {
     Mat<1,1> a = zero<1,1>();
 
@@ -43,18 +45,18 @@ TEST_CASE( "specialized row/column constructors", "" ) {
         Vec3 c1 = { 2, 5, 8 };
         Vec3 c2 = { 3, 6, 9 };
 
-        Mat3 m1 = construct_mat3_from_rows( r0, r1, r2 );
-        Mat3 m2 = construct_mat3_from_cols( c0, c1, c2 );
+        Mat3 m1 = constructMat3FromRows( r0, r1, r2 );
+        Mat3 m2 = constructMat3FromCols( c0, c1, c2 );
 
         REQUIRE( m1 == m2 );
 
-        REQUIRE( get_row0( m1 ) == r0 );
-        REQUIRE( get_row1( m1 ) == r1 );
-        REQUIRE( get_row2( m1 ) == r2 );
+        REQUIRE( getRow0( m1 ) == r0 );
+        REQUIRE( getRow1( m1 ) == r1 );
+        REQUIRE( getRow2( m1 ) == r2 );
 
-        REQUIRE( get_col0( m2 ) == c0 );
-        REQUIRE( get_col1( m2 ) == c1 );
-        REQUIRE( get_col2( m2 ) == c2 );
+        REQUIRE( getCol0( m2 ) == c0 );
+        REQUIRE( getCol1( m2 ) == c1 );
+        REQUIRE( getCol2( m2 ) == c2 );
     }
 
     // Mat4
@@ -69,20 +71,20 @@ TEST_CASE( "specialized row/column constructors", "" ) {
         Vec4 c2 = {  3,  7, 11, 15 };
         Vec4 c3 = {  4,  8, 12, 16 };
 
-        Mat4 m1 = construct_mat4_from_rows( r0, r1, r2, r3 );
-        Mat4 m2 = construct_mat4_from_cols( c0, c1, c2, c3 );
+        Mat4 m1 = constructMat4FromRows( r0, r1, r2, r3 );
+        Mat4 m2 = constructMat4FromCols( c0, c1, c2, c3 );
 
         REQUIRE( m1 == m2 );
 
-        REQUIRE( get_row0( m1 ) == r0 );
-        REQUIRE( get_row1( m1 ) == r1 );
-        REQUIRE( get_row2( m1 ) == r2 );
-        REQUIRE( get_row3( m1 ) == r3 );
+        REQUIRE( getRow0( m1 ) == r0 );
+        REQUIRE( getRow1( m1 ) == r1 );
+        REQUIRE( getRow2( m1 ) == r2 );
+        REQUIRE( getRow3( m1 ) == r3 );
 
-        REQUIRE( get_col0( m2 ) == c0 );
-        REQUIRE( get_col1( m2 ) == c1 );
-        REQUIRE( get_col2( m2 ) == c2 );
-        REQUIRE( get_col3( m2 ) == c3 );
+        REQUIRE( getCol0( m2 ) == c0 );
+        REQUIRE( getCol1( m2 ) == c1 );
+        REQUIRE( getCol2( m2 ) == c2 );
+        REQUIRE( getCol3( m2 ) == c3 );
     }
 }
 
