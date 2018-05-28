@@ -3,6 +3,8 @@
 
 static const float EPSILON = 1e-6;
 
+using namespace gml;
+
 TEST_CASE( "base vector accessors", "" ) {
     Vec<1> x = { 5 };
     REQUIRE( x[0] == 5 );
