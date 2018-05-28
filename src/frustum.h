@@ -1,36 +1,38 @@
 #pragma once
 
-#include "vec.hpp"
-#include "mat.hpp"
-#include "primitives.hpp"
+#include "vector.h"
+#include "matrix.h"
+#include "primitives.h"
 
-Plane get_frustum_near_plane  ( const Mat4& projection );
-Plane get_frustum_far_plane   ( const Mat4& projection );
-Plane get_frustum_left_plane  ( const Mat4& projection );
-Plane get_frustum_right_plane ( const Mat4& projection );
-Plane get_frustum_top_plane   ( const Mat4& projection );
-Plane get_frustum_bottom_plane( const Mat4& projection );
+namespace gml {
+    Plane getFrustumNearPlane  ( const Mat4& projection );
+    Plane getFrustumFarPlane   ( const Mat4& projection );
+    Plane getFrustumLeftPlane  ( const Mat4& projection );
+    Plane getFrustumRightPlane ( const Mat4& projection );
+    Plane getFrustumTopPlane   ( const Mat4& projection );
+    Plane getFrustumBottomPlane( const Mat4& projection );
 
-Plane get_frustum_near_plane  ( const Mat4& projection ) {
-    return Plane( get_row3( projection ) + get_row2( projection ) );
-}
+    Plane getFrustumNearPlane  ( const Mat4& projection ) {
+        return Plane( getRow3( projection ) + getRow2( projection ) );
+    }
 
-Plane get_frustum_far_plane   ( const Mat4& projection ) {
-    return Plane( get_row3( projection ) - get_row2( projection ) );
-}
+    Plane getFrustumFarPlane   ( const Mat4& projection ) {
+        return Plane( getRow3( projection ) - getRow2( projection ) );
+    }
 
-Plane get_frustum_left_plane  ( const Mat4& projection ) {
-    return Plane( get_row3( projection ) + get_row0( projection ) );
-}
+    Plane getFrustumLeftPlane  ( const Mat4& projection ) {
+        return Plane( getRow3( projection ) + getRow0( projection ) );
+    }
 
-Plane get_frustum_right_plane ( const Mat4& projection ) {
-    return Plane( get_row3( projection ) - get_row0( projection ) );
-}
+    Plane getFrustumRightPlane ( const Mat4& projection ) {
+        return Plane( getRow3( projection ) - getRow0( projection ) );
+    }
 
-Plane get_frustum_top_plane   ( const Mat4& projection ) {
-    return Plane( get_row3( projection ) - get_row1( projection ) );
-}
+    Plane getFrustumTopPlane   ( const Mat4& projection ) {
+        return Plane( getRow3( projection ) - getRow1( projection ) );
+    }
 
-Plane get_frustum_bottom_plane( const Mat4& projection ) {
-    return Plane( get_row3( projection ) + get_row1( projection ) );
+    Plane getFrustumBottomPlane( const Mat4& projection ) {
+        return Plane( getRow3( projection ) + getRow1( projection ) );
+    }
 }

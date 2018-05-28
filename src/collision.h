@@ -1,7 +1,7 @@
 #pragma once
 
-#include "math_extensions.hpp"
-#include "primitives.hpp"
+#include "math_extensions.h"
+#include "primitives.h"
 
 namespace gml {
     // NOTE: if the ray starts inside the sphere, it will be considered not to intersect with the sphere.

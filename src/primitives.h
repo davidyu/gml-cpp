@@ -14,7 +14,7 @@ namespace gml {
 
         Ray( Vec3 o, Vec3 d )
             : origin( o )
-            , direction( normalize( direction ) )
+            , direction( normalize( d ) )
         {}
 
         inline Vec3 at( float t ) const { return origin + t * direction; }
