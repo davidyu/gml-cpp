@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include "vec.hpp"
+#include "vector.h"
 
 namespace gml {
     template <int rows, int cols> struct Mat {

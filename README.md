@@ -10,8 +10,8 @@ The API and general design of this library is based on [Nathan Reed's On Vector 
 This is a C++11 header-only library. Using this library should be fairly simple, as you only need to include the corresponding header file in your code. The vector and matrix classes are templatized, so you can define arbitrarily sized vectors and matrices (though the generated assembly might be gnarly to examine as a result):
 
 ```
-#include "vec.hpp"
-#include "mat.hpp"
+#include "vector.h"
+#include "matrix.h"
 
 int main() {
   Vec<2> v2 = { 1, 2 };
@@ -25,8 +25,8 @@ int main() {
 Template specializations and aliases are provided for common vector and matrix sizes in games, such as `Vec2`, `Vec3`, `Vec4`, `Mat3` and `Mat4`:
 
 ```
-#include "vec.hpp"
-#include "mat.hpp"
+#include "vector.h"
+#include "matrix.h"
 #include <iostream>
 
 int main() {
@@ -53,8 +53,8 @@ Matrices are stored in row-major order.
 Common arithmetic operators (`+, -, *, /, ^, +=, -=, *=, /=, ^=, ==, !=`) are overloaded:
 
 ```
-#include "vec.hpp"
-#include "mat.hpp"
+#include "vector.h"
+#include "matrix.h"
 #include <iostream>
 
 int main() {

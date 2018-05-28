@@ -1,4 +1,4 @@
-#include "vec.hpp"
+#include "vector.h"
 #include "lib/catch.hpp"
 
 static const float EPSILON = 1e-6;

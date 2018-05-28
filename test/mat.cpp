@@ -1,4 +1,4 @@
-#include "mat.hpp"
+#include "matrix.h"
 #include "lib/catch.hpp"
 
 static const float EPSILON = 1e-6;
