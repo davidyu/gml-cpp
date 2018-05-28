@@ -24,7 +24,7 @@
 
 #define _USE_MATH_DEFINES // needed for M_PI to exist on Windows
 
-#include "math_extensions.hpp"
+#include "math_extensions.h"
 #include <math.h>
 #include <stdlib.h>
 
