@@ -1,6 +1,10 @@
 #include "vector.h"
 #include "lib/catch.hpp"
 
+#if defined( _WIN64 )
+    #include <time.h> // for time( NULL )
+#endif
+
 static const float EPSILON = 1e-6;
 
 using namespace gml;
