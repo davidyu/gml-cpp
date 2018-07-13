@@ -18,6 +18,8 @@ The vector and matrix classes are templatized, so you can define arbitrarily siz
 #include "matrix.h"
 
 int main() {
+  using namespace gml;
+  
   Vec<2> v2 = { 1, 2 };
   Vec<6> v6 = { 1, 2, 3, 4, 5, 6 };
   
@@ -34,6 +36,7 @@ Template specializations and aliases are provided for common vector and matrix s
 #include <iostream>
 
 int main() {
+  using namespace gml;
   using namespace std;
   
   Vec2 v2 = { 1, 2 };
@@ -62,6 +65,7 @@ Common arithmetic operators (`+, -, *, /, ^, +=, -=, *=, /=, ^=, ==, !=`) are ov
 #include <iostream>
 
 int main() {
+  using namespace gml;
   using namespace std;
   
   Vec4 pos = { 0, 0, 0, 1 };
@@ -81,3 +85,5 @@ int main() {
   return 0;
 }
 ```
+
+Everything in this library is enclosed under the `gml` namespace.
